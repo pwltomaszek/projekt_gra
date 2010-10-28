@@ -1,7 +1,7 @@
 #ifndef POJAZD_H
 #define POJAZD_H
 
-#include "../gl4fun/glmadapter.h"
+#include "opengl/glmadapter.h"
 
 #include "przeszkoda.h"
 

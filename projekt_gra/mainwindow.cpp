@@ -7,7 +7,7 @@
 #include "glwidget.h"
 #include "gra.h"
 
-#include "IL/il.h"
+#include "opengl/IL/il.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
