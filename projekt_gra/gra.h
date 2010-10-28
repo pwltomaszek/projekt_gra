@@ -1,6 +1,8 @@
 #ifndef GRA_H
 #define GRA_H
 
+#include <boost/timer.hpp>
+
 #include <map>
 
 #include "mapa.h"
@@ -26,8 +28,10 @@ private:
 
     std::map< int, bool > mKlawisze;
 
-    // w sekundach!
+    boost::timer mTimer;
+    double mCurrentTime;
     double mTimeDelta;
+
 
     //to do usuniecia
     bool widokZGory, widokTwarz;

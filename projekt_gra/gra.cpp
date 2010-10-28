@@ -15,7 +15,7 @@ Gra::Gra()
     widokZGory = true;
     widokTwarz = false;
 
-    mTimeDelta = (double)clock() / (double)CLOCKS_PER_SEC;
+    mCurrentTime = mTimer.elapsed();
 
     {
         ColladaMeshFactory factory( 0, "budynek.dae" );
@@ -78,7 +78,9 @@ void Gra::rysuj()
 
 void Gra::petla()
 {
-    mTimeDelta = (double)clock() / (double)CLOCKS_PER_SEC - mTimeDelta;
+    double currentTime = mTimer.elapsed();
+    mTimeDelta = currentTime - mCurrentTime;
+    mCurrentTime = currentTime;
 
     przetworzKlawisze();
     przetworzLogikeGry();
@@ -96,16 +98,16 @@ void Gra::przetworzKlawisze()
     dx = dy = dz = 0;
 
     if( mKlawisze[ Qt::Key_Left ] )
-        zmianaKata = 0.05;
+        zmianaKata = 180;
 
     if( mKlawisze[ Qt::Key_Right ] )
-        zmianaKata = -0.05;
+        zmianaKata = -180;
 
     if( mKlawisze[ Qt::Key_Up ] )
-        dy = -0.001;
+        dy = -1.5;
 
     if( mKlawisze[ Qt::Key_Down ] )
-        dy = 0.001;
+        dy = 1.5;
 
     if( mKlawisze[ Qt::Key_Home ] )
         widokZGory = !widokZGory;
