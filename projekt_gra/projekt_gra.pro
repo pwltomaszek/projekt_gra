@@ -5,11 +5,11 @@ QT += opengl \
     xml
 
 win32 {
-    LIBS += -ldevil
+    LIBS += -ldevil -lglew32
 }
 
 !win32 {
-    LIBS += -lIL
+    LIBS += -lIL -lGLEW
 }
 
 TARGET = projekt_gra

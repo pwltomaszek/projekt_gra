@@ -37,13 +37,15 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent *e)
+void MainWindow::closeEvent(QCloseEvent */*e*/)
 {
     // dirty dirty hack
     // zamiast zostawac w tle po alt+f4, proces ma segfaulta przy zamykaniu
-    delete mGra;
-    this->deleteLater();
-    e->accept();
+//    delete mGra;
+//    this->deleteLater();
+//    e->accept();
+
+    exit( 0 );
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -58,8 +60,7 @@ void MainWindow::on_pushButton_clicked()
     while( true ) {
         mGra->petla();
 
-        glWidget->paintGL();
-        glWidget->swapBuffers();
+        glWidget->updateGL();
 
         QApplication::processEvents();
     }

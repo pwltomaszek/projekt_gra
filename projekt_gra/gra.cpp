@@ -109,11 +109,12 @@ void Gra::przetworzKlawisze()
     if( mKlawisze[ Qt::Key_Down ] )
         dy = 1.5;
 
-    if( mKlawisze[ Qt::Key_Home ] )
-        widokZGory = !widokZGory;
+    if( mKlawisze[ Qt::Key_Home ] ) {
+        widokZGory = widokTwarz = false;
+    }
 
-    if( mKlawisze[ Qt::Key_Home ] )
-        widokZGory = false;
+    if( mKlawisze[ Qt::Key_End ] )
+        widokTwarz = true;
 
     zmianaKata *= mTimeDelta;
     dx *= mTimeDelta;

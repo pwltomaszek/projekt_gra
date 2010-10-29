@@ -24,6 +24,7 @@ void GLWidget::paintGL()
 
 void GLWidget::resizeGL(int w, int h)
 {
+    glViewport( 0, 0, w, h );
     GLWrapper::instance().setPerspective( 60.0, (float)w / (float)h, 0.1, 10000.0 );
 }
 

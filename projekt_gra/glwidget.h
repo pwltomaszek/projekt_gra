@@ -12,10 +12,9 @@ Q_OBJECT
 public:
     explicit GLWidget( QWidget *parent, Gra *gra);
 
-    void paintGL();
-
 protected:
     void initializeGL();
+    void paintGL();
     void resizeGL(int w, int h);
 
     void keyPressEvent(QKeyEvent *e);
