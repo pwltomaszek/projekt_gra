@@ -1,3 +1,8 @@
+#include <GL/glew.h>
+#include <GL/glext.h>
+
+#include <QDebug>
+
 #include <iostream>
 #include <stdexcept>
 
@@ -47,15 +52,18 @@ GLWrapper& GLWrapper::instance()
     return mGLWrapper;
 }
 
-void GLWrapper::init(int argc, char *argv[])
+void GLWrapper::init(int /*argc*/, char */*argv*/[])
 {
 //    glutInitWindowSize( 800, 800 );
 //    glutInitWindowPosition(64, 64);
 //    glutInit(&argc, argv);
 //    glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH );
 //    glutCreateWindow(argv[0]);
-//
-//    glewInit();
+
+    GLenum err = glewInit();
+    if (GLEW_OK != err) {
+        qDebug() << QString::fromAscii( (const char*)glewGetErrorString(err) );
+    }
 
     GLint majorVersion;
     GLint minorVersion;
@@ -470,7 +478,7 @@ void GLWrapper::rotate(const float &angle, const glm::vec3 &vec)
     mModelViewMatrix = glm::rotate( mModelViewMatrix, angle, vec );
 }
 
-void GLWrapper::setPerspective(float angle, float aspectRatio, float near, float far)
+void GLWrapper::setPerspective(float aangle, float aaspectRatio, float anear, float afar)
 {
-    mProjectionMatrix = glm::perspective( angle, aspectRatio, near, far );
+    mProjectionMatrix = glm::perspective( aangle, aaspectRatio, anear, afar );
 }

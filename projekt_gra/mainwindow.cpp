@@ -8,6 +8,8 @@
 #include "gra.h"
 
 #include "opengl/IL/il.h"
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,13 +39,15 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent *e)
+void MainWindow::closeEvent(QCloseEvent */*e*/)
 {
     // dirty dirty hack
     // zamiast zostawac w tle po alt+f4, proces ma segfaulta przy zamykaniu
-    delete mGra;
-    this->deleteLater();
-    e->accept();
+//    delete mGra;
+//    this->deleteLater();
+//    e->accept();
+
+    exit( 0 );
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -58,9 +62,15 @@ void MainWindow::on_pushButton_clicked()
     while( true ) {
         mGra->petla();
 
-        glWidget->paintGL();
-        glWidget->swapBuffers();
+        glWidget->updateGL();
 
         QApplication::processEvents();
     }
+}
+
+void MainWindow::on_actionSterowanie_triggered(){
+    QMessageBox msgBox;
+    msgBox.setText("Sterowanie");
+    msgBox.setInformativeText("Strza³ki, spacja, Home");
+    msgBox.exec();
 }

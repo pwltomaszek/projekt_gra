@@ -24,19 +24,30 @@ void GLWidget::paintGL()
 
 void GLWidget::resizeGL(int w, int h)
 {
+    glViewport( 0, 0, w, h );
     GLWrapper::instance().setPerspective( 60.0, (float)w / (float)h, 0.1, 10000.0 );
 }
 
 void GLWidget::keyPressEvent(QKeyEvent *e)
 {
     // trzeba to poprawiæ
-    if( e->key() == Qt::Key_Q ) 
+    if( e->key() == Qt::Key_Q )
         exit( 0 );
+
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
 
     mGra->klawiszWcisniety( e->key() );
 }
 
 void GLWidget::keyReleaseEvent(QKeyEvent *e)
 {
-    mGra->klawiszWcisniety( e->key(), false );
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
+
+    mGra->klawiszZwolniony( e->key() );
 }

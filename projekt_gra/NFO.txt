@@ -1,0 +1,12 @@
+TODO:
+        MAJOR:
+ - system kolizji. najlepiej by pojazd delikatnie sie odbijal od przeszkod,
+ bo teraz potrafi sie zablokowac (przez moje zmiany w kodzie. moze to naprawie),
+ a do tego bledy w obsludze klawiatury (blokowanie klawiszy) sprawiaja ze ciezko wyjechac ze sciany
+ - hud
+ - superklasa PunktKontrolny, dziedziczace po niej Odcinek, Przejazd, etc. (zaleznie od zadan)
+ - rozwinac mape
+
+        MINOR:
+ - rozwinac klase pojazd. opisane w klasie co i jak
+ - transformacja kaczki w samochod
