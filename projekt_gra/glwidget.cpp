@@ -31,13 +31,23 @@ void GLWidget::resizeGL(int w, int h)
 void GLWidget::keyPressEvent(QKeyEvent *e)
 {
     // trzeba to poprawiæ
-    if( e->key() == Qt::Key_Q ) 
+    if( e->key() == Qt::Key_Q )
         exit( 0 );
+
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
 
     mGra->klawiszWcisniety( e->key() );
 }
 
 void GLWidget::keyReleaseEvent(QKeyEvent *e)
 {
-    mGra->klawiszWcisniety( e->key(), false );
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
+
+    mGra->klawiszZwolniony( e->key() );
 }

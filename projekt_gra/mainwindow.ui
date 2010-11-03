@@ -34,29 +34,21 @@
      <x>0</x>
      <y>0</y>
      <width>749</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSdfsdf">
     <property name="title">
-     <string>sdfsdf</string>
+     <string>Menu</string>
     </property>
-    <addaction name="actionSdfsf"/>
+    <addaction name="actionSterowanie"/>
    </widget>
    <addaction name="menuSdfsdf"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionSdfsf">
+  <action name="actionSterowanie">
    <property name="text">
-    <string>sdfsf</string>
+    <string>Sterowanie</string>
    </property>
   </action>
  </widget>

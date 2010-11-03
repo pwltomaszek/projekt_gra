@@ -24,6 +24,7 @@ private:
     Gra *mGra;
 
 private slots:
+    void on_actionSterowanie_triggered();
     void on_pushButton_clicked();
 };
 

@@ -7,7 +7,7 @@
 
 #include "mapa.h"
 #include "pojazd.h"
-
+#include <QKeyEvent>
 class GLWrapper;
 
 class Gra
@@ -15,12 +15,18 @@ class Gra
 public:
     Gra();
 
-    void klawiszWcisniety( int klawisz, bool nacisniety = true );
+    void klawiszWcisniety( int klawisz );
+    void klawiszZwolniony( int klawisz );
     void petla();
     void rysuj();
 
+    enum Akcje { SKRET_LEWO, SKRET_PRAWO, W_PRZOD, W_TYL, HAMOWANIE, ZMIANA_KAMERY };
+    QMap<int, Akcje> akcje;
+
+
+
 private:
-    void przetworzKlawisze();
+    void przesunGracza();
     void przetworzLogikeGry();
 
     Mapa mMapa;
@@ -33,8 +39,13 @@ private:
     double mTimeDelta;
 
 
+
+
     //to do usuniecia
-    bool widokZGory, widokTwarz;
+    enum widoki {
+        Z_GORY, FPP, PSYCHO, KONIEC
+    };
+    enum widoki widok;
 };
 
 #endif // GRA_H

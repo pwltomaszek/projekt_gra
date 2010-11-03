@@ -7,13 +7,32 @@
 #include "chodnik.h"
 #include "droga.h"
 
+#include <QGraphicsTextItem>
+
 Gra::Gra()
 {
-    for( int i = 0; i < 256; ++i )
-        mKlawisze[ i ] = false;
 
-    widokZGory = true;
-    widokTwarz = false;
+    QGraphicsTextItem *textSprite = new QGraphicsTextItem;
+    textSprite->setHtml( QString("<font color=black></font>").arg("thtwe") );
+
+    mCurrentTime = mTimer.elapsed();
+    textSprite->setPos( 100, 100 );
+    textSprite->show();
+
+
+
+    akcje.insert( Qt::Key_Up, W_PRZOD );
+    akcje.insert( Qt::Key_Left, SKRET_LEWO );
+    akcje.insert( Qt::Key_Right, SKRET_PRAWO );
+    akcje.insert( Qt::Key_Down, W_TYL  );
+    akcje.insert( Qt::Key_Space, HAMOWANIE  );
+    akcje.insert( Qt::Key_Home, ZMIANA_KAMERY  );
+
+    mPojazd.stop( true );
+
+
+
+    widok = Z_GORY;
 
     mCurrentTime = mTimer.elapsed();
 
@@ -50,26 +69,32 @@ void Gra::rysuj()
     gl.clear();
     gl.loadIdentity();
 
-    if( widokTwarz ) {
-        gl.rotate( 180.f, glm::vec3( 0.f, 1.f, 0.f ) );
-        gl.translate( glm::vec3( 0.f, 0.3, 1.2 ) );
-        gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
-        gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
-        gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
-        gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                             -mPojazd.polozenie[ 3 ][ 1 ],
-                                              -1.f ) );
-    } else if( widokZGory ) {
-        gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                 -mPojazd.polozenie[ 3 ][ 1 ],
-                                 -7.f ) );
-    } else {
-        gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
-        gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
-        gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
-        gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                             -mPojazd.polozenie[ 3 ][ 1 ],
-                                             -1.f ) );
+    switch( widok ){
+        case PSYCHO:{
+            gl.rotate( 180.f, glm::vec3( 0.f, 1.f, 0.f ) );
+            gl.translate( glm::vec3( 0.f, 0.3, 1.2 ) );
+            gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
+            gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
+            gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
+            gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
+                                                 -mPojazd.polozenie[ 3 ][ 1 ],
+                                                  -1.f ) );
+            break;
+        }
+        case Z_GORY:{
+            gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
+                                     -mPojazd.polozenie[ 3 ][ 1 ],
+                                     -7.f ) );
+            break;
+        }
+        case FPP:{
+            gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
+            gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
+            gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
+            gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
+                                                 -mPojazd.polozenie[ 3 ][ 1 ],
+                                                 -1.f ) );
+        }
     }
 
     mMapa.rysuj();
@@ -82,59 +107,88 @@ void Gra::petla()
     mTimeDelta = currentTime - mCurrentTime;
     mCurrentTime = currentTime;
 
-    przetworzKlawisze();
     przetworzLogikeGry();
+    przesunGracza();
 }
 
-void Gra::klawiszWcisniety(int klawisz, bool nacisniety)
-{
-    mKlawisze[ klawisz ] = nacisniety;
-}
+void Gra::klawiszWcisniety(int klawisz){
 
-void Gra::przetworzKlawisze()
-{
-    float zmianaKata = 0;
-    float dx, dy, dz;
-    dx = dy = dz = 0;
+    Akcje a = akcje[ klawisz ];
 
-    if( mKlawisze[ Qt::Key_Left ] )
-        zmianaKata = 180;
+    switch ( a ) {
+        case SKRET_LEWO:
+            mPojazd.skretLewo( true );
+            break;
 
-    if( mKlawisze[ Qt::Key_Right ] )
-        zmianaKata = -180;
+        case SKRET_PRAWO:
+             mPojazd.skretPrawo( true );
+            break;
 
-    if( mKlawisze[ Qt::Key_Up ] )
-        dy = -1.5;
+        case W_PRZOD:
+            mPojazd.doPrzodu( true );
+            break;
 
-    if( mKlawisze[ Qt::Key_Down ] )
-        dy = 1.5;
+        case W_TYL:
+            mPojazd.doTylu( true );
+            break;
 
-    if( mKlawisze[ Qt::Key_Home ] ) {
-        widokZGory = widokTwarz = false;
+        case HAMOWANIE:
+            mPojazd.hamowanie( true );
+            break;
+
+        case ZMIANA_KAMERY:
+            widok = widoki(widok+1);
+            if(widok == KONIEC)
+                widok = widoki(0);
+            break;
+
+        default:
+            return;
     }
+}
 
-    if( mKlawisze[ Qt::Key_End ] )
-        widokTwarz = true;
+void Gra::klawiszZwolniony(int klawisz){
 
-    zmianaKata *= mTimeDelta;
-    dx *= mTimeDelta;
-    dy *= mTimeDelta;
-    dz *= mTimeDelta;
+    Akcje a = akcje[ klawisz ];
 
+    switch ( a ) {
+        case SKRET_LEWO:
+            mPojazd.skretLewo( false );
+            break;
+
+        case SKRET_PRAWO:
+             mPojazd.skretPrawo( false );
+            break;
+
+        case W_PRZOD:
+            mPojazd.doPrzodu( false );
+            break;
+
+        case W_TYL:
+            mPojazd.doTylu( false );
+            break;
+
+        case HAMOWANIE:
+            mPojazd.hamowanie( false );
+            break;
+
+        default:
+            return;
+    }
+}
+
+void Gra::przetworzLogikeGry(){
+
+}
+
+void Gra::przesunGracza(){
     glm::mat4 backup = mPojazd.polozenie;
 
-    mPojazd.polozenie = glm::rotate( mPojazd.polozenie, zmianaKata, glm::vec3( 0.f, 0.f, 1.f ) );
-    mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( dx, dy, dz ) );
-    mPojazd.kat += zmianaKata;
+    mPojazd.mTimeDelta = mTimeDelta;
+
     mPojazd.przeliczObszarKolizji();
 
     if( mMapa.zachodziKolizja( &mPojazd ) ) {
-        mPojazd.polozenie = backup;
-        mPojazd.kat -= zmianaKata;
+        mPojazd.cofnijPoKolizji( backup );
     }
-}
-
-void Gra::przetworzLogikeGry()
-{
-
 }

@@ -8,6 +8,8 @@
 #include "gra.h"
 
 #include "opengl/IL/il.h"
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,4 +66,11 @@ void MainWindow::on_pushButton_clicked()
 
         QApplication::processEvents();
     }
+}
+
+void MainWindow::on_actionSterowanie_triggered(){
+    QMessageBox msgBox;
+    msgBox.setText("Sterowanie");
+    msgBox.setInformativeText("Strza³ki, spacja, Home");
+    msgBox.exec();
 }
