@@ -1,7 +1,7 @@
 #ifndef GRA_H
 #define GRA_H
 
-#include <boost/timer.hpp>
+#include <QTime>
 
 #include <map>
 
@@ -34,12 +34,9 @@ private:
 
     std::map< int, bool > mKlawisze;
 
-    boost::timer mTimer;
+    QTime mTimer;
     double mCurrentTime;
     double mTimeDelta;
-
-
-
 
     //to do usuniecia
     enum widoki {

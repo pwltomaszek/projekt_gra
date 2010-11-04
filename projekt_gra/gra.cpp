@@ -11,7 +11,8 @@
 
 Gra::Gra()
 {
-    mCurrentTime = mTimer.elapsed();
+    mTimer.start();
+
     akcje.insert( Qt::Key_Up, W_PRZOD );
     akcje.insert( Qt::Key_Left, SKRET_LEWO );
     akcje.insert( Qt::Key_Right, SKRET_PRAWO );
@@ -21,11 +22,7 @@ Gra::Gra()
 
     mPojazd.stop();
 
-
-
     widok = Z_GORY;
-
-    mCurrentTime = mTimer.elapsed();
 
     {
         ColladaMeshFactory factory( 0, "budynek.dae" );
@@ -94,9 +91,10 @@ void Gra::rysuj()
 
 void Gra::petla()
 {
-    double currentTime = mTimer.elapsed();
+    double currentTime = (double)mTimer.elapsed() / 1000.0;
     mTimeDelta = currentTime - mCurrentTime;
     mCurrentTime = currentTime;
+    qDebug() << mCurrentTime;
 
     przetworzLogikeGry();
     przesunGracza();
