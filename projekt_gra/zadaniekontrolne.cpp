@@ -2,7 +2,7 @@
 
 ZadanieKontrolne::ZadanieKontrolne()
 {
-
+//khkh
 }
 
 
