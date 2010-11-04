@@ -28,7 +28,6 @@ public:
     float kat;
     double mTimeDelta;
 
-
     Node *mesh;
 
 private:

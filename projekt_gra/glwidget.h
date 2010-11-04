@@ -17,9 +17,6 @@ protected:
     void paintGL();
     void resizeGL(int w, int h);
 
-    void keyPressEvent(QKeyEvent *e);
-    void keyReleaseEvent(QKeyEvent *e);
-
 private:
     Gra *mGra;
 
