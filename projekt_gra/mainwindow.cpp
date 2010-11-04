@@ -50,22 +50,32 @@ void MainWindow::closeEvent(QCloseEvent */*e*/)
     exit( 0 );
 }
 
+void MainWindow::debugFPS() {
+    qDebug() << "FPS: " << (double)mFPSCount / 10.f;
+    mFPSCount = 0;
+}
+
+void MainWindow::nastepnaKlatka()
+{
+    ++mFPSCount;
+    mGra->petla();
+    mGLWidget->updateGL();
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     qobject_cast< QPushButton* >( sender() )->hide();
 
     mGra = new Gra;
-    GLWidget *glWidget = new GLWidget( this, mGra );
-    setCentralWidget( glWidget );
-    glWidget->setFocus();
+    mGLWidget = new GLWidget( this, mGra );
+    setCentralWidget( mGLWidget );
 
-    while( true ) {
-        mGra->petla();
+    connect(&mFPSCountTimer, SIGNAL(timeout()), this, SLOT(debugFPS()));
+    mFPSCountTimer.start( 10000 );
+    mFPSCount = 0;
 
-        glWidget->updateGL();
-
-        QApplication::processEvents();
-    }
+    connect(&mFPSTimer, SIGNAL(timeout()), this, SLOT(nastepnaKlatka()));
+    mFPSTimer.start( 1000.f / 60.f );
 }
 
 void MainWindow::on_actionSterowanie_triggered(){
@@ -73,4 +83,28 @@ void MainWindow::on_actionSterowanie_triggered(){
     msgBox.setText("Sterowanie");
     msgBox.setInformativeText("Strza³ki, spacja, Home");
     msgBox.exec();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    // trzeba to poprawiæ
+    if( e->key() == Qt::Key_Q )
+        exit( 0 );
+
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
+
+    mGra->klawiszWcisniety( e->key() );
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *e)
+{
+    if ( e->isAutoRepeat() || !mGra->akcje.contains( e->key() ) )    {
+        e->ignore();
+        return;
+    }
+
+    mGra->klawiszZwolniony( e->key() );
 }

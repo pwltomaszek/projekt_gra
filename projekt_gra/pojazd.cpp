@@ -53,7 +53,7 @@ void Pojazd::ruchSwobodny(){
 
 void Pojazd::przeliczObszarKolizji()
 {    
-    qDebug()<<"predkosc km/h: " << predkosc*6;
+//    qDebug()<<"predkosc km/h: " << predkosc*6;
 
     zmianaKata = 0;
     dx = dy = dz = 0;

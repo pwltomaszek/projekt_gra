@@ -11,6 +11,7 @@
 
 Gra::Gra()
 {
+    mCurrentTime = mTimer.elapsed();
     akcje.insert( Qt::Key_Up, W_PRZOD );
     akcje.insert( Qt::Key_Left, SKRET_LEWO );
     akcje.insert( Qt::Key_Right, SKRET_PRAWO );
