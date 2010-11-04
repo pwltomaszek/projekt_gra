@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include <QTimer>
 class Gra;
 
 namespace Ui {
@@ -23,9 +24,14 @@ private:
     Ui::MainWindow *ui;
     Gra *mGra;
 
+    QTimer mFPSTimer;
+    unsigned int mFPSCount;
+
 private slots:
     void on_actionSterowanie_triggered();
     void on_pushButton_clicked();
+
+    void debugFPS();
 };
 
 #endif // MAINWINDOW_H

@@ -9,11 +9,8 @@
 #include "opengl/opengl.h"
 #include <math.h>
 
-#define KROKI                   200
-#define PI_X_2                  6.283185307
-
-#define MAX_PREDKOSC            15
-#define MAX_KAT                 180
+#define MAX_PREDKOSC            10
+//#define MAX_KAT                 180
 //TODO: najlepiej by przyspieszenie nie bylo stale, a zalezne od aktualnej predkosci, skretu, etc.
 #define PRZYSPIESZENIE          0.005
 
@@ -55,17 +52,17 @@ void Pojazd::ruchSwobodny(){
 }
 
 void Pojazd::przeliczObszarKolizji()
-{
+{    
     qDebug()<<"predkosc km/h: " << predkosc*6;
 
     zmianaKata = 0;
     dx = dy = dz = 0;
 
     if( skretL )
-        zmianaKata = 150 ;
+        zmianaKata = 100 ;
 
     if( skretP )
-        zmianaKata = -150;
+        zmianaKata = -100;
 
     if( zahamowanie ){
         int znak = 1;
@@ -90,6 +87,9 @@ void Pojazd::przeliczObszarKolizji()
         if ( dy <= -MAX_PREDKOSC/5 )
             dy = -MAX_PREDKOSC/5;
     }
+
+    if( predkosc < 0.1 )  //dla cofania
+        zmianaKata *= -1;
 
     ruchSwobodny();
 
@@ -126,17 +126,17 @@ void Pojazd::przeliczObszarKolizji()
     correct( poly );
 }
 
-void Pojazd::stop( bool r ){
-    skretLewo( !r );
-    skretPrawo( !r );
-    doPrzodu( !r );
-    doTylu( !r );
+void Pojazd::stop( ){
+    skretLewo( false );
+    skretPrawo( false );
+    doPrzodu( false );
+    doTylu( false );
     dy = dx = dz = 0;
     predkosc = 0;
 }
 
 void Pojazd::cofnijPoKolizji( glm::mat4 polozenie ){
-    stop( true );
+    stop();
     this->polozenie = polozenie;
     kat -= zmianaKata * mTimeDelta;
 }

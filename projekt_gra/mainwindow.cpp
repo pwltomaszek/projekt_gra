@@ -50,6 +50,11 @@ void MainWindow::closeEvent(QCloseEvent */*e*/)
     exit( 0 );
 }
 
+void MainWindow::debugFPS() {
+    qDebug() << "FPS: " << (double)mFPSCount / 10.f;
+    mFPSCount = 0;
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     qobject_cast< QPushButton* >( sender() )->hide();
@@ -59,7 +64,12 @@ void MainWindow::on_pushButton_clicked()
     setCentralWidget( glWidget );
     glWidget->setFocus();
 
+    connect(&mFPSTimer, SIGNAL(timeout()), this, SLOT(debugFPS()));
+    mFPSTimer.start( 10000 );
+    mFPSCount = 0;
+
     while( true ) {
+        ++mFPSCount;
         mGra->petla();
 
         glWidget->updateGL();
