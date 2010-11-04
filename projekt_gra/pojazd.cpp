@@ -59,10 +59,12 @@ void Pojazd::przeliczObszarKolizji()
     dx = dy = dz = 0;
 
     if( skretL )
-        zmianaKata = 100 ;
+        if ( fabs(predkosc) > 0.1 )
+            zmianaKata = 100 ;
 
     if( skretP )
-        zmianaKata = -100;
+        if ( fabs(predkosc) > 0.1 )
+            zmianaKata = -100;
 
     if( zahamowanie ){
         int znak = 1;
