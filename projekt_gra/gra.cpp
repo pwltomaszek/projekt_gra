@@ -11,15 +11,6 @@
 
 Gra::Gra()
 {
-
-    QGraphicsTextItem *textSprite = new QGraphicsTextItem;
-    textSprite->setHtml( QString("<font color=black></font>").arg("thtwe") );
-
-    textSprite->setPos( 100, 100 );
-    textSprite->show();
-
-
-
     akcje.insert( Qt::Key_Up, W_PRZOD );
     akcje.insert( Qt::Key_Left, SKRET_LEWO );
     akcje.insert( Qt::Key_Right, SKRET_PRAWO );
@@ -27,7 +18,7 @@ Gra::Gra()
     akcje.insert( Qt::Key_Space, HAMOWANIE  );
     akcje.insert( Qt::Key_Home, ZMIANA_KAMERY  );
 
-    mPojazd.stop( true );
+    mPojazd.stop();
 
 
 

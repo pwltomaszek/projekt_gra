@@ -12,7 +12,7 @@ class Pojazd : public Przeszkoda
 public:
     Pojazd();
 
-    void stop( bool r);
+    void stop();
     void skretLewo( bool r ) { skretL = r; }
     void skretPrawo( bool r ) { skretP = r; }
     void doPrzodu( bool r ) { wPrzod = r; }
@@ -34,7 +34,7 @@ public:
 private:
     float dy, dx, dz;
     float zmianaKata;
-    float predkosc;
+    double predkosc;
 
     //zmienia atrybuty predkosci i przesuniecia bez uwzgledniania akcji od kierowcy,
     //czyli jazda 'na luzie'
