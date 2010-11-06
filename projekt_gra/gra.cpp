@@ -94,7 +94,7 @@ void Gra::petla()
     double currentTime = (double)mTimer.elapsed() / 1000.0;
     mTimeDelta = currentTime - mCurrentTime;
     mCurrentTime = currentTime;
-    qDebug() << mCurrentTime;
+    //qDebug() << mCurrentTime;
 
     przetworzLogikeGry();
     przesunGracza();

@@ -15,6 +15,7 @@ public:
 
     bool zachodziKolizja( const Przeszkoda *przeszkoda );
     void rysuj();
+    void ustawPrzeszkody();
 
 private:
     std::vector< Przeszkoda* > przeszkody;

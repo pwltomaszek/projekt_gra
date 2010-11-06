@@ -11,13 +11,16 @@ public:
     enum Kierunek {
         PolnocPoludnie,
         WschodZachod
-    } kierunek;
+    };
 
     Droga();
-
+    Droga( Kierunek kierunek );
     virtual void rysuj(uint i, uint j);
 
     static Node *mesh;
+
+private:
+    enum Kierunek kierunek;
 };
 
 #endif // DROGA_H

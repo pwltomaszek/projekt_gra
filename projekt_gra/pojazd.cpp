@@ -12,7 +12,7 @@
 #define MAX_PREDKOSC            10
 //#define MAX_KAT                 180
 //TODO: najlepiej by przyspieszenie nie bylo stale, a zalezne od aktualnej predkosci, skretu, etc.
-#define PRZYSPIESZENIE          0.005
+#define PRZYSPIESZENIE          0.01
 
 Pojazd::Pojazd()
 {
