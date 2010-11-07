@@ -11,20 +11,12 @@ Mapa::Mapa()
     memset( mapa, 0, 15 * sizeof( ObiektNaMapie* ) );
 
     //budynki
-    Budynek *b1 = new Budynek;
-    b1->dx = 20;
-    b1->dy = 1;
-    b1->x = 0;
-    b1->y = 0;
+    Budynek *b1 = new Budynek(20, 1, 0, 0);
     b1->przeliczObszarKolizji();
     mapa[ 0 ][ 0 ] = b1;
     przeszkody.push_back( b1 );
 
-    Budynek *b2 = new Budynek;
-    b2->dx = 2;
-    b2->dy = 1;
-    b2->x = 0;
-    b2->y = 2;
+    Budynek *b2 = new Budynek( 2, 1, 0, 2);
     b2->przeliczObszarKolizji();
     mapa[ 0 ][ 2 ] = b2;
     przeszkody.push_back( b2 );
@@ -37,12 +29,10 @@ Mapa::Mapa()
     mapa[ 2 ][ 2 ] = ch;
 
     //drogi
-    Droga *dWZ = new Droga;
-    dWZ->kierunek = Droga::WschodZachod;
+    Droga *dWZ = new Droga( Droga::WschodZachod );
     mapa[ 3 ][ 2 ] = dWZ;
 
-    Droga *dPP = new Droga;
-    dPP->kierunek = Droga::PolnocPoludnie;
+    Droga *dPP = new Droga( Droga::PolnocPoludnie );
     mapa[ 1 ][ 1 ] = dPP;
     mapa[ 2 ][ 1 ] = dPP;
     mapa[ 3 ][ 1 ] = dPP;

@@ -8,6 +8,10 @@ Node* Droga::mesh;
 Droga::Droga()
 {
 }
+Droga::Droga( Kierunek kierunek )
+{
+    this->kierunek = kierunek;
+}
 
 void Droga::rysuj(uint i, uint j)
 {
