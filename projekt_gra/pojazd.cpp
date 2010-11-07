@@ -26,8 +26,11 @@ void Pojazd::rysuj()
 
     gl.pushMatrix();
     gl.multMatrix( polozenie );
+    glCullFace( GL_FRONT );
 
     mesh->draw();
+
+    glCullFace( GL_BACK );
 
     gl.popMatrix();
 }

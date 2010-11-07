@@ -336,7 +336,7 @@ void GLWrapper::draw(Mesh *mesh)
 
     static LightSource *light = 0;
     delete light;
-    light = new LightSource( 0, 50, 1,
+    light = new LightSource( 0, 0, -50,
                              0.5, 0.5, 0.5,
                              0.5, 0.5, 0.5 );
 
@@ -481,4 +481,9 @@ void GLWrapper::rotate(const float &angle, const glm::vec3 &vec)
 void GLWrapper::setPerspective(float aangle, float aaspectRatio, float anear, float afar)
 {
     mProjectionMatrix = glm::perspective( aangle, aaspectRatio, anear, afar );
+}
+
+void GLWrapper::scale(const float &ratio)
+{
+    mModelViewMatrix = glm::scale( mModelViewMatrix, glm::vec3( ratio ) );
 }

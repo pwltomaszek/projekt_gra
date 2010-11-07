@@ -24,6 +24,8 @@ protected:
     void keyReleaseEvent(QKeyEvent *e);
 
 private:
+    const float FramesPerSec;
+
     Ui::MainWindow *ui;
     Gra *mGra;
     GLWidget *mGLWidget;

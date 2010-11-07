@@ -43,9 +43,9 @@ Gra::Gra()
     }
 
     {
-        ColladaMeshFactory factory( 0, "duck_triangulate.dae" );
-        mPojazd.mesh = factory.getScene( "LOD3sp" );
-        mPojazd.polozenie = glm::translate( glm::mat4( 1.f ), glm::vec3( 7, 5, 0.f ) );
+        ColladaMeshFactory factory( 0, "camaro.dae" );
+        mPojazd.mesh = factory.getScene( "Mesh" );
+        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 7, 5, 0.f ) );
         mPojazd.mesh->calculateTransformMatrix();
     }
 }
@@ -60,13 +60,13 @@ void Gra::rysuj()
     switch( widok ){
         case PSYCHO:{
             gl.rotate( 180.f, glm::vec3( 0.f, 1.f, 0.f ) );
-            gl.translate( glm::vec3( 0.f, 0.3, 1.2 ) );
+            gl.translate( glm::vec3( 0.f, 0.7, 1.2 ) );
             gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
             gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
             gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                                 -mPojazd.polozenie[ 3 ][ 1 ],
-                                                  -1.f ) );
+                                     -mPojazd.polozenie[ 3 ][ 1 ],
+                                     -1.f ) );
             break;
         }
         case Z_GORY:{
@@ -94,7 +94,6 @@ void Gra::petla()
     double currentTime = (double)mTimer.elapsed() / 1000.0;
     mTimeDelta = currentTime - mCurrentTime;
     mCurrentTime = currentTime;
-    qDebug() << mCurrentTime;
 
     przetworzLogikeGry();
     przesunGracza();

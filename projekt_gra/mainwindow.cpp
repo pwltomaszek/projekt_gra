@@ -14,7 +14,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    mGra( 0 )
+    mGra( 0 ),
+    FramesPerSec( 60 )
 {
     ui->setupUi(this);
 
@@ -75,7 +76,7 @@ void MainWindow::on_pushButton_clicked()
     mFPSCount = 0;
 
     connect(&mFPSTimer, SIGNAL(timeout()), this, SLOT(nastepnaKlatka()));
-    mFPSTimer.start( 1000.f / 60.f );
+    mFPSTimer.start( 1000.f / FramesPerSec );
 }
 
 void MainWindow::on_actionSterowanie_triggered(){

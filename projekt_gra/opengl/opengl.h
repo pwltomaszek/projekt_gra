@@ -52,6 +52,7 @@ public:
     void processKeyboard( int key, int /*x*/, int /*y*/ );
     void pushMatrix();
     void rotate( const float &angle, const glm::vec3 &vec );
+    void scale( const float &ratio );
     void setPerspective( float angle, float aspectRatio, float near, float far );
     void translate( const glm::vec3 &vec );
     void updateBuffer( const int &dataPosition, Mesh *mesh,
