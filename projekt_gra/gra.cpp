@@ -44,9 +44,11 @@ Gra::Gra()
 
     {
         ColladaMeshFactory factory( 0, "camaro.dae" );
-        mPojazd.mesh = factory.getScene( "Mesh" );
+        factory.readFromFile( "camaro.mesh" );
+        mPojazd.mesh = factory.getScene( "Camaro" );
         mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 7, 5, 0.f ) );
         mPojazd.mesh->calculateTransformMatrix();
+//        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
 }
 

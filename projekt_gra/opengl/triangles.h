@@ -16,7 +16,6 @@ public:
     void setIndices( const unsigned int &count, unsigned int *array );
     void setMaterialName( const std::string &name );
 
-private:
     std::string mMaterialName;
     unsigned int *mIndices;
     unsigned int mIndicesCount;

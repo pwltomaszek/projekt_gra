@@ -706,3 +706,122 @@ Node* ColladaMeshFactory::getScene(const QString &rootNodeId)
 
     return  getNodeData( rootElement );
 }
+
+bool ColladaMeshFactory::writeToFile(const QString &fileName, Mesh *rootNode)
+{
+    QFile file( fileName );
+    if( !file.open( QIODevice::WriteOnly ) )
+        return false;
+
+    QDataStream out( &file );
+
+    return writeMesh( rootNode, out );
+}
+
+bool ColladaMeshFactory::writeMesh(const Mesh *mesh, QDataStream &out)
+{
+    out << (quint32)MeshSource;
+    out.writeBytes( mesh->mName.c_str(), mesh->mName.size() );
+    out << (quint32)mesh->mTriangles.size();
+
+    foreach( Triangles *triangles, mesh->mTriangles )
+        writeTriangles( triangles, out );
+
+    uint dataSize = mesh->mDataCount * sizeof( float );
+
+    for( uint i = 0; i < Mesh::DataPositionCount; ++i ) {
+        if( mesh->mData[ i ] ) {
+            int dataCountPerVertex = 3;
+            if( i == Mesh::Color )
+                dataCountPerVertex = 4;
+            else if( i == Mesh::TexCoord )
+                dataCountPerVertex = 2;
+
+            out.writeBytes( (char*)mesh->mData[ i ], dataSize * dataCountPerVertex );
+        } else
+            out << (quint32)0;
+    }
+
+    return true;
+}
+
+bool ColladaMeshFactory::writeTriangles(const Triangles *triangles, QDataStream &out)
+{
+    out.writeBytes( triangles->mMaterialName.c_str(), triangles->mMaterialName.size() );
+    out.writeBytes( (char*)triangles->mIndices, triangles->mIndicesCount * sizeof( uint ) );
+
+    return true;
+}
+
+Mesh* ColladaMeshFactory::readFromFile(const QString &fileName)
+{
+    QFile file( fileName );
+    if( !file.open( QIODevice::ReadOnly ) )
+        return false;
+
+    QDataStream in( &file );
+
+    quint32 typ;
+    in >> typ;
+    if( typ != MeshSource )
+        return 0;
+
+    char *nazwa;
+    quint32 dlugosc;
+    in.readBytes( nazwa, dlugosc );
+    Mesh *mesh = new Mesh( string( nazwa, dlugosc ) );
+    delete []nazwa;
+
+    quint32 iloscZestawowTrojkatow;
+    in >> iloscZestawowTrojkatow;
+    for( uint i = 0; i < iloscZestawowTrojkatow; ++i ) {
+        readTriangles( mesh, in );
+
+        QString matName = QString::fromStdString( mesh->mTriangles.back()->mMaterialName );
+        processMaterial( matName, matName );
+    }
+
+    for( uint i = 0; i < Mesh::DataPositionCount; ++i ) {
+        int dataCountPerVertex = 3;
+        if( i == Mesh::Color )
+            dataCountPerVertex = 4;
+        else if( i == Mesh::TexCoord )
+            dataCountPerVertex = 2;
+
+        quint32 size;
+        char *data;
+        in.readBytes( data, size );
+
+        if( size != 0 ) {
+            mesh->mData[ i ] = (float*)data;
+            mesh->mDataCount = size / dataCountPerVertex / sizeof( float );
+
+        } else
+            mesh->mData[ i ] = 0;
+    }
+
+    mesh->shaderProgramType = GLWrapper::TextureShader;
+
+    Mesh::addMesh( mesh->name(), mesh );
+
+    return mesh;
+}
+
+void ColladaMeshFactory::readTriangles(Mesh *mesh, QDataStream &in)
+{
+    Triangles *triangles = new Triangles;
+
+    char *nazwa;
+    quint32 dlugosc;
+    in.readBytes( nazwa, dlugosc );
+    triangles->mMaterialName = string( nazwa, dlugosc );
+    delete []nazwa;
+
+    char *indices;
+    quint32 indicesCount;
+    in.readBytes( indices, indicesCount );
+    triangles->mIndicesCount = indicesCount / sizeof( uint );
+    triangles->mIndices = ( uint* )indices;
+
+    mesh->mTriangles.push_back( triangles );
+}

@@ -50,7 +50,6 @@ public:
     unsigned int vaoId, vboIds[ DataPositionCount ];
     GLWrapper::ShaderProgramType shaderProgramType;
 
-private:
     std::string mName;
     std::vector< Triangles* > mTriangles;
 

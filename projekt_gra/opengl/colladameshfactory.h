@@ -3,6 +3,7 @@
 
 #include <QtXml>
 
+#include <QDataStream>
 #include <QDebug>
 #include <QFile>
 #include <QImage>
@@ -56,6 +57,9 @@ public:
     Node* getScene( const QString &name );
     SkeletonController* getSkeletonController( const QString &name, Mesh *mesh );
 
+    Mesh* readFromFile( const QString &fileName );
+    bool writeToFile( const QString &fileName, Mesh *mesh );
+
 signals:
 
 public slots:
@@ -81,6 +85,16 @@ private:
                           QDomElement parent = QDomElement() );
     Triangles* processTrianglesTag( const QDomElement &node );
     float* putDataFromSourceTag( const QString &sourceId, const QString &semantic );
+
+    // writing and reading from custom binary files
+    enum SourceType {
+        NodeSource,
+        MeshSource
+    };
+
+    void readTriangles( Mesh *mesh, QDataStream &in );
+    bool writeMesh( const Mesh *mesh, QDataStream &out );
+    bool writeTriangles( const Triangles *triangles, QDataStream &out );
 
     QDomDocument domDocument;
     QFile file;
