@@ -6,18 +6,18 @@
 
 class Node;
 
-class Budynek : public ObiektNaMapie,
-                public Przeszkoda
+class Budynek : public Przeszkoda
 {
 private:
     //dx, dy - rozmiar; x, y - polozenie na mapie
-    unsigned int dx, dy, x, y;
+//    , x, y;
+    uint szer, dl;
 
 public:
     Budynek();
-    Budynek( int dx, int dy, int x, int y );
+    Budynek( uint szer, uint dl, float dx, float dy );
     virtual void rysuj( uint i, uint j );
-    void przeliczObszarKolizji();
+    virtual void przeliczObszarKolizji( uint x, uint y );
 
     static Node *mesh;
 };

@@ -5,13 +5,22 @@
 #include <boost/geometry/geometries/cartesian2d.hpp>
 #include <boost/geometry/geometries/adapted/c_array_cartesian.hpp>
 
+#include "pojazd.h"
+
 class Przeszkoda
 {
 public:
-    bool koliduje( const Przeszkoda &przeszkoda );
+    Przeszkoda( float dx = 0, float dy = 0 );
+
+    bool koliduje( const Pojazd &przeszkoda );
+    virtual void przeliczObszarKolizji( uint x, uint y ) {};
+    virtual void rysuj( uint i, uint j ) {}
 
 protected:
-    boost::geometry::polygon_2d poly;
+    void dzialanie() {};
+
+    boost::geometry::polygon_2d obszarKolizji;
+    float dx, dy;
 };
 
 #endif // PRZESZKODA_H

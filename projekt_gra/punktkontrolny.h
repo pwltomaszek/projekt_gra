@@ -3,12 +3,15 @@
 
 #include "zadaniekontrolne.h"
 
-class PunktKontrolny : ZadanieKontrolne
+class PunktKontrolny : Przeszkoda
 {
 public:
     PunktKontrolny();
 
 
 };
+
+
+
 
 #endif // PUNKTKONTROLNY_H

@@ -127,8 +127,8 @@ void Pojazd::przeliczObszarKolizji()
         coords[ i ][ 1 ] = punkty[ i % 4 ][ 1 ] / 2;
     }
 
-    assign( poly, coords );
-    correct( poly );
+    assign( obszarKolizji, coords );
+    correct( obszarKolizji );
 }
 
 void Pojazd::stop( ){

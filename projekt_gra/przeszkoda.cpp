@@ -1,6 +1,14 @@
 #include "przeszkoda.h"
 
-bool Przeszkoda::koliduje(const Przeszkoda &przeszkoda)
+Przeszkoda::Przeszkoda(float dx, float dy)
 {
-    return boost::geometry::intersects( this->poly, przeszkoda.poly );
+    this->dx = dx;
+    this->dy = dy;
+}
+
+bool Przeszkoda::koliduje(const Pojazd &pojazd)
+{
+    dzialanie(pojazd);
+
+    return boost::geometry::intersects( this->obszarKolizji, pojazd.obszarKolizji );
 }

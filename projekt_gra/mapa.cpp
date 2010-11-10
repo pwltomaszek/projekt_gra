@@ -8,18 +8,12 @@
 
 Mapa::Mapa()
 {
-    memset( mapa, 0, 15 * sizeof( ObiektNaMapie* ) );
+//    memset( mapa, 0, 15 * sizeof( vector< Przeszkoda* > ) );
 
     //budynki
-    Budynek *b1 = new Budynek(20, 1, 0, 0);
-    b1->przeliczObszarKolizji();
-    mapa[ 0 ][ 0 ] = b1;
-    przeszkody.push_back( b1 );
-
-    Budynek *b2 = new Budynek( 2, 1, 0, 2);
-    b2->przeliczObszarKolizji();
-    mapa[ 0 ][ 2 ] = b2;
-    przeszkody.push_back( b2 );
+    dodajPrzeszkode( new Budynek( 20, 1 ), 0, 0 );
+    dodajPrzeszkode( new Budynek( 2, 1 ), 0, 2 );
+//    dodajPrzeszkode( new Chodnik );
 
     //chodniki
     Chodnik *ch = new Chodnik;
@@ -46,11 +40,19 @@ void Mapa::rysuj()
                 mapa[ i ][ j ]->rysuj( i, j );
 }
 
-bool Mapa::zachodziKolizja(const Przeszkoda *przeszkoda)
+bool Mapa::zachodziKolizja(const Pojazd *pojazd)
 {
+    bool check = false;
     for( unsigned int i = 0; i < przeszkody.size(); ++i )
-        if( przeszkody.at( i )->koliduje( *przeszkoda ) )
-            return true;
+        if( przeszkody.at( i )->koliduje( *pojazd ) )
+            check= true;
 
-    return false;
+    return check;
+}
+
+void Mapa::dodajPrzeszkode(Przeszkoda *przeszkoda, uint x, uint y)
+{
+    przeszkody.push_back( przeszkoda );
+    przeszkoda->przeliczObszarKolizji( x, y );
+    mapa[x][y].push_back(przeszkoda);
 }

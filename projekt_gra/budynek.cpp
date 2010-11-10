@@ -11,20 +11,18 @@ Budynek::Budynek()
 {
 }
 
-Budynek::Budynek( int dx, int dy, int x, int y )
+Budynek::Budynek(uint szer, uint dl, float dx, float dy)
+    : Przeszkoda( dx, dy )
 {
-    this->dx = dx;
-    this->dy = dy;
-    this->y = y;
-    this->x = x;
-    //this->przeliczObszarKolizji();
+    this->szer = szer;
+    this->dl = dl;
 }
 
 void Budynek::rysuj(uint i, uint j)
 {
     for( uint a = 0; a < dx; ++a ) {
         for( uint b = 0; b < dy; ++b ) {
-            ObiektNaMapie::rysuj( i + a, j + b );
+            Przeszkoda::rysuj( i + a, j + b );
 
             mesh->draw();
 
@@ -33,18 +31,18 @@ void Budynek::rysuj(uint i, uint j)
     }
 }
 
-void Budynek::przeliczObszarKolizji()
+void Budynek::przeliczObszarKolizji(float x, float y)
 {
     float coords[ 5 ][ 2 ] = { { 0.0, 0.0 },
-                               { (float)dx, 0.0 },
-                               { (float)dx, (float)dy },
-                               { 0.0, (float)dy },
+                               { (float)szer, 0.0 },
+                               { (float)szer, (float)dl },
+                               { 0.0, (float)dl },
                                { 0.0, 0.0 } };
     for( int i = 0; i < 5; ++i ) {
-        coords[ i ][ 0 ] += x;
-        coords[ i ][ 1 ] += y;
+        coords[ i ][ 0 ] += x + dx;
+        coords[ i ][ 1 ] += y + dy;
     }
 
-    assign( poly, coords );
-    correct( poly );
+    assign( obszarKolizji, coords );
+    correct( obszarKolizji );
 }

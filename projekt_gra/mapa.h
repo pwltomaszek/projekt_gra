@@ -3,7 +3,10 @@
 
 #include <vector>
 
+typedef unsigned int uint;
+
 class ObiektNaMapie;
+class Pojazd;
 class Przeszkoda;
 
 class Mapa
@@ -11,13 +14,17 @@ class Mapa
 public:
     Mapa();
 
-    ObiektNaMapie* mapa[ 5 ][ 3 ];    // x, y
+//    ObiektNaMapie* mapa[ 5 ][ 3 ];    // x, y
 
-    bool zachodziKolizja( const Przeszkoda *przeszkoda );
+    void dodajPrzeszkode( Przeszkoda *przeszkoda, uint x = 0, uint y = 0 );
+
+    bool zachodziKolizja( const Pojazd *pojazd );
     void rysuj();
-    void ustawPrzeszkody();
+//    void ustawPrzeszkody();
 
 private:
+//    std::vector< Przeszkoda* > zad;
+    vector<Przeszkoda*> mapa[5*3];
     std::vector< Przeszkoda* > przeszkody;
 };
 
