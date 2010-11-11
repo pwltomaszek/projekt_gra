@@ -5,19 +5,23 @@
 
 Node* Droga::mesh;
 
-Droga::Droga()
-{
-}
-Droga::Droga( Kierunek kierunek )
+Droga::Droga(Kierunek kierunek, float rx, float ry)
+    : Przeszkoda( rx, ry )
 {
     this->kierunek = kierunek;
 }
 
-void Droga::rysuj(uint i, uint j)
+void Droga::rysuj()
 {
-    ObiektNaMapie::rysuj( i, j );
+    GLWrapper &gl = GLWrapper::instance();
 
-    mesh->draw();
+    for( uint a = 0; a < rozmiarX; ++a )
+        for( uint b = 0; b < rozmiarY; ++b ) {
+            gl.pushMatrix();
+            gl.translate( glm::vec3( a, b, 0.f ) );
 
-    GLWrapper::instance().popMatrix();
+            mesh->draw();
+
+            gl.popMatrix();
+        }
 }

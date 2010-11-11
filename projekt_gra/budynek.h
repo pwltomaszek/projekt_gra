@@ -8,15 +8,9 @@ class Node;
 
 class Budynek : public Przeszkoda
 {
-private:
-    //dx, dy - rozmiar; x, y - polozenie na mapie
-//    , x, y;
-    uint szer, dl;
-
 public:
-    Budynek();
-    Budynek( uint szer, uint dl, float dx, float dy );
-    virtual void rysuj( uint i, uint j );
+    Budynek( uint rx, uint ry, float dx = 0, float dy = 0 );
+    virtual void rysuj();
     virtual void przeliczObszarKolizji( uint x, uint y );
 
     static Node *mesh;

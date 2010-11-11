@@ -5,15 +5,22 @@
 
 Node* Chodnik::mesh;
 
-Chodnik::Chodnik()
+Chodnik::Chodnik(float rx, float ry)
+    : Przeszkoda( rx, ry )
 {
 }
 
-void Chodnik::rysuj(uint i, uint j)
+void Chodnik::rysuj()
 {
-    ObiektNaMapie::rysuj( i, j );
+    GLWrapper &gl = GLWrapper::instance();
 
-    mesh->draw();
+    for( uint a = 0; a < rozmiarX; ++a )
+        for( uint b = 0; b < rozmiarY; ++b ) {
+            gl.pushMatrix();
+            gl.translate( glm::vec3( a, b, 0.f ) );
 
-    GLWrapper::instance().popMatrix();
+            mesh->draw();
+
+            gl.popMatrix();
+        }
 }

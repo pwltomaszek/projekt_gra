@@ -7,40 +7,36 @@
 
 Node* Budynek::mesh;
 
-Budynek::Budynek()
-{
-}
-
 Budynek::Budynek(uint szer, uint dl, float dx, float dy)
-    : Przeszkoda( dx, dy )
+    : Przeszkoda( szer, dl, 0, dx, dy )
 {
-    this->szer = szer;
-    this->dl = dl;
 }
 
-void Budynek::rysuj(uint i, uint j)
+void Budynek::rysuj()
 {
-    for( uint a = 0; a < dx; ++a ) {
-        for( uint b = 0; b < dy; ++b ) {
-            Przeszkoda::rysuj( i + a, j + b );
+    GLWrapper &gl = GLWrapper::instance();
+
+    for( uint a = 0; a < rozmiarX; ++a )
+        for( uint b = 0; b < rozmiarY; ++b ) {
+            gl.pushMatrix();
+            gl.translate( glm::vec3( a, b, 0.f ) );
 
             mesh->draw();
 
-            GLWrapper::instance().popMatrix();
+            gl.popMatrix();
         }
-    }
 }
 
-void Budynek::przeliczObszarKolizji(float x, float y)
+void Budynek::przeliczObszarKolizji(uint x, uint y)
 {
     float coords[ 5 ][ 2 ] = { { 0.0, 0.0 },
-                               { (float)szer, 0.0 },
-                               { (float)szer, (float)dl },
-                               { 0.0, (float)dl },
+                               { (float)rozmiarX, 0.0 },
+                               { (float)rozmiarX, (float)rozmiarY },
+                               { 0.0, (float)rozmiarY },
                                { 0.0, 0.0 } };
     for( int i = 0; i < 5; ++i ) {
-        coords[ i ][ 0 ] += x + dx;
-        coords[ i ][ 1 ] += y + dy;
+        coords[ i ][ 0 ] += x + przesuniecieX;
+        coords[ i ][ 1 ] += y + przesuniecieY;
     }
 
     assign( obszarKolizji, coords );
