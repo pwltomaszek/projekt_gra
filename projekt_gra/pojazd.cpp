@@ -22,6 +22,8 @@ Pojazd::Pojazd()
 
 void Pojazd::rysuj()
 {
+    rysujObszarKolizji();
+
     GLWrapper &gl = GLWrapper::instance();
 
     gl.pushMatrix();
@@ -110,25 +112,31 @@ void Pojazd::przeliczObszarKolizji()
     kat += zmianaKata;
 
 
-    glm::vec2 punkty[] = { glm::vec2( 0.3, 0.3 ),
-                           glm::vec2( -0.3, 0.3 ),
-                           glm::vec2( -0.3, -0.3 ),
-                           glm::vec2( 0.3, -0.3 ) };
+    glm::vec2 punkty[] = { glm::vec2( 0.7, 2 ),
+                           glm::vec2( -0.7, 2  ),
+                           glm::vec2( -0.7, -2 ),
+                           glm::vec2( 0.7, -2 ) };
 
     for( int i = 0; i < 4; ++i ) {
         punkty[ i ] = glm::rotate( punkty[ i ], kat );
         punkty[ i ][ 0 ] += polozenie[ 3 ][ 0 ];
         punkty[ i ][ 1 ] += polozenie[ 3 ][ 1 ];
+//        qDebug() << punkty[ i ][ 0 ] << punkty[ i ][ 1 ];
     }
+//    qDebug() << "";
+
+//    qDebug() << polozenie[ 3 ][ 0 ] << polozenie[ 3 ][ 1 ];
 
     float coords[ 5 ][ 2 ];
     for( int i = 0; i < 5; ++i ) {
-        coords[ i ][ 0 ] = punkty[ i % 4 ][ 0 ] / 2;
-        coords[ i ][ 1 ] = punkty[ i % 4 ][ 1 ] / 2;
+        coords[ i ][ 0 ] = punkty[ i % 4 ][ 0 ];
+        coords[ i ][ 1 ] = punkty[ i % 4 ][ 1 ];
     }
 
     assign( obszarKolizji, coords );
     correct( obszarKolizji );
+
+    stworzMeshKolizji();
 }
 
 void Pojazd::stop( ){

@@ -24,7 +24,7 @@ public:
 
 private:
 //    std::vector< Przeszkoda* > zad;
-    std::vector< Przeszkoda* > mapa[ 5 ][ 3 ];
+    std::vector< Przeszkoda* > mapa[ 100 ][ 100 ];
     std::vector< Przeszkoda* > przeszkody;
 };
 

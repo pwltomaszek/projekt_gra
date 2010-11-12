@@ -25,6 +25,8 @@ void Budynek::rysuj()
 
             gl.popMatrix();
         }
+
+    Przeszkoda::rysuj();
 }
 
 void Budynek::przeliczObszarKolizji(uint x, uint y)

@@ -19,12 +19,19 @@ public:
     virtual void przeliczObszarKolizji( uint x, uint y ) {}
     virtual void rysuj() {}
 
+    void rysujObszarKolizji();
+    void stworzMeshKolizji();
+    static bool rysujObszKolizji;
+
 protected:
     void dzialanie( const Pojazd *pojazd ) {}
 
     boost::geometry::polygon_2d obszarKolizji;
     float przesuniecieX, przesuniecieY;
     float rozmiarX, rozmiarY, rozmiarZ;
+
+    // do testowania
+    Mesh *obszarKolizjiMesh;
 };
 
 #endif // PRZESZKODA_H

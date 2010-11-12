@@ -20,10 +20,9 @@ public:
     void petla();
     void rysuj();
 
-    enum Akcje { SKRET_LEWO, SKRET_PRAWO, W_PRZOD, W_TYL, HAMOWANIE, ZMIANA_KAMERY };
+    enum Akcje { SKRET_LEWO, SKRET_PRAWO, W_PRZOD, W_TYL, HAMOWANIE,
+                 ZMIANA_KAMERY, PODSWIETLENIE_OBSZ_KOLIZJI };
     QMap<int, Akcje> akcje;
-
-
 
 private:
     void przesunGracza();

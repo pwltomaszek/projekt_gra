@@ -1,6 +1,7 @@
 #include "gra.h"
 
 #include "opengl/colladameshfactory.h"
+#include "opengl/material.h"
 #include "opengl/opengl.h"
 
 #include "budynek.h"
@@ -19,6 +20,7 @@ Gra::Gra()
     akcje.insert( Qt::Key_Down, W_TYL  );
     akcje.insert( Qt::Key_Space, HAMOWANIE  );
     akcje.insert( Qt::Key_Home, ZMIANA_KAMERY  );
+    akcje.insert( Qt::Key_End, PODSWIETLENIE_OBSZ_KOLIZJI );
 
     mPojazd.stop();
 
@@ -50,6 +52,16 @@ Gra::Gra()
         mPojazd.mesh->calculateTransformMatrix();
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
+
+    // niech ten kod tu trochê powisi, mo¿e przydaæ siê do rysowania przezroczystych obszarow
+//    Material *obszarKolizjiMat = new Material;
+//    float czerwony[] = { 1, 0, 0, 0.5 };
+//    obszarKolizjiMat->ambient = new float[ 4 ];
+//    memcpy( obszarKolizjiMat->ambient, czerwony, 4 * sizeof( float ) );
+//    obszarKolizjiMat->diffuse = new float[ 4 ];
+//    memcpy( obszarKolizjiMat->diffuse, czerwony, 4 * sizeof( float ) );
+
+//    Mesh::addMaterial( "czerwienAlpha", obszarKolizjiMat );
 }
 
 void Gra::rysuj()
@@ -131,6 +143,9 @@ void Gra::klawiszWcisniety(int klawisz){
             if(widok == KONIEC)
                 widok = widoki(0);
             break;
+
+        case PODSWIETLENIE_OBSZ_KOLIZJI:
+            Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
 
         default:
             return;

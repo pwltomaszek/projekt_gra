@@ -10,7 +10,8 @@ Mapa::Mapa()
 
     //budynki
 
-    dodajPrzeszkode( new Budynek( 20, 4 ), 3, 3 );
+    dodajPrzeszkode( new Budynek( 20, 4 ), 6, 5 );
+    dodajPrzeszkode( new Budynek( 20, 4 ), 0, 0 );
 
    // dodajPrzeszkode( new Budynek( 2, 1 ), 0, 2 );
 
@@ -29,15 +30,18 @@ void Mapa::rysuj()
 {
     GLWrapper &gl = GLWrapper::instance();
 
-    for( int i = 0; i < 5; ++i ) {
-        for( int j = 0; j < 3; ++j ) {
-            gl.pushMatrix();
-            gl.translate( glm::vec3( i, j, 0.f ) );
+    for( int i = 0; i < 100; ++i ) {
+        for( int j = 0; j < 100; ++j ) {
+            for( uint k = 0; k < mapa[ i ][ j ].size(); ++k ) {
+                mapa[ i ][ j ].at( k )->rysujObszarKolizji();
 
-            for( uint k = 0; k < mapa[ i ][ j ].size(); ++k )
+                gl.pushMatrix();
+                gl.translate( glm::vec3( i, j, 0.f ) );
+
                 mapa[ i ][ j ].at( k )->rysuj();
 
-            gl.popMatrix();
+                gl.popMatrix();
+            }
         }
     }
 }
@@ -56,5 +60,6 @@ void Mapa::dodajPrzeszkode(Przeszkoda *przeszkoda, uint x, uint y)
 {
     przeszkody.push_back( przeszkoda );
     przeszkoda->przeliczObszarKolizji( x, y );
+    przeszkoda->stworzMeshKolizji();
     mapa[ x ][ y ].push_back(przeszkoda);
 }

@@ -315,6 +315,9 @@ void GLWrapper::initShaderPrograms()
 
 void GLWrapper::draw(Mesh *mesh)
 {
+    if( !mesh )
+        return;
+
     checkGLError( "draw begin" );
 
     if( mesh->vaoId == 0 )
@@ -361,6 +364,17 @@ void GLWrapper::draw(Mesh *mesh)
 
     glUniformBlockBinding( programId, lightUniformBlockIndex, 1 );
     glBindBufferBase( GL_UNIFORM_BUFFER, 1, lightUniformBufferId );
+
+    if( mesh->triangleCount() == 0 ) {
+        glLineWidth( 3 );
+        glDrawArrays( GL_LINE_STRIP, 0, mesh->mDataCount );
+
+        glDeleteBuffers( 1, &lightUniformBufferId );
+        glBindVertexArray( 0 );
+        glUseProgram( 0 );
+
+        return;
+    }
 
     checkGLError( "material" );
 
