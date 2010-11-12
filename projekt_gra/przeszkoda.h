@@ -7,6 +7,7 @@
 
 #include "opengl/glmadapter.h"
 #include "opengl/opengl.h"
+typedef unsigned int uint;
 
 class Pojazd;
 

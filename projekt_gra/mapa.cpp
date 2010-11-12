@@ -2,7 +2,7 @@
 #include "chodnik.h"
 #include "droga.h"
 #include "mapa.h"
-#include "punktkontrolny.h"
+#include "zadaniaKontrolne/punktkontrolny.h"
 
 Mapa::Mapa()
 {
@@ -10,19 +10,16 @@ Mapa::Mapa()
 
     //budynki
 
-    dodajPrzeszkode( new Budynek( 20, 4 ), 6, 5 );
-    dodajPrzeszkode( new Budynek( 20, 4 ), 0, 0 );
-
-   // dodajPrzeszkode( new Budynek( 2, 1 ), 0, 2 );
+    dodajPrzeszkode( new Budynek( 100, 4, 7 ), 0, 0 );
 
     //chodniki
-//    dodajPrzeszkode( new Chodnik( 20, 1 ), 0, 5 );
-//    dodajPrzeszkode( new Chodnik( 20, 2 ), 0, 12 );
+    dodajPrzeszkode( new Chodnik( 100, 1 ), 0, 12 );
+    dodajPrzeszkode( new Chodnik( 100, 2 ), 0, 4 );
 
-////    //drogi
-//    dodajPrzeszkode( new Droga( Droga::WschodZachod, 1, 1 ), 3, 2 );
-//    dodajPrzeszkode( new Droga( Droga::PolnocPoludnie, 50, 6 ), 0, 6 );
+    //drogi
+    dodajPrzeszkode( new Droga( Droga::WschodZachod, 100, 6 ), 0, 6 );
 
+    //zadania kontrolne
     //dodajPrzeszkode( new PunktKontrolny );
 }
 

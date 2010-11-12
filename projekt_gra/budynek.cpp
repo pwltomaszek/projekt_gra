@@ -7,8 +7,8 @@
 
 Node* Budynek::mesh;
 
-Budynek::Budynek(uint szer, uint dl, float dx, float dy)
-    : Przeszkoda( szer, dl, 0, dx, dy )
+Budynek::Budynek(uint szer, uint dl, uint wys, float dx, float dy)
+    : Przeszkoda( szer, dl, wys, dx, dy )
 {
 }
 
@@ -17,14 +17,15 @@ void Budynek::rysuj()
     GLWrapper &gl = GLWrapper::instance();
 
     for( uint a = 0; a < rozmiarX; ++a )
-        for( uint b = 0; b < rozmiarY; ++b ) {
-            gl.pushMatrix();
-            gl.translate( glm::vec3( a, b, 0.f ) );
+        for( uint b = 0; b < rozmiarY; ++b )
+            for( uint c = 0; c < rozmiarY; ++c ){
+                gl.pushMatrix();
+                gl.translate( glm::vec3( a, b, c ) );
 
-            mesh->draw();
+                mesh->draw();
 
-            gl.popMatrix();
-        }
+                gl.popMatrix();
+            }
 
     Przeszkoda::rysuj();
 }

@@ -9,10 +9,10 @@
 #include "opengl/opengl.h"
 #include <math.h>
 
-#define MAX_PREDKOSC            200
+#define MAX_PREDKOSC            100
 //#define MAX_KAT                 180
 //TODO: najlepiej by przyspieszenie nie bylo stale, a zalezne od aktualnej predkosci, skretu, etc.
-#define PRZYSPIESZENIE          0.1
+#define PRZYSPIESZENIE          0.05
 
 Pojazd::Pojazd()
 {
@@ -65,11 +65,11 @@ void Pojazd::przeliczObszarKolizji()
 
     if( skretL )
         if ( fabs(predkosc) > 0.1 )
-            zmianaKata = 100 ;
+            zmianaKata = 80 ;
 
     if( skretP )
         if ( fabs(predkosc) > 0.1 )
-            zmianaKata = -100;
+            zmianaKata = -80;
 
     if( zahamowanie ){
         int znak = 1;

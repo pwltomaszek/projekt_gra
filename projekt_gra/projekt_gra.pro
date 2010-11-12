@@ -41,8 +41,8 @@ SOURCES += main.cpp \
     droga.cpp \
     chodnik.cpp \
     budynek.cpp \
-    zadaniekontrolne.cpp \
-    punktkontrolny.cpp
+    zadaniaKontrolne/zadaniekontrolne.cpp \
+    zadaniaKontrolne/punktkontrolny.cpp
 HEADERS += mainwindow.h \
     glwidget.h \
     gra.h \
@@ -71,8 +71,8 @@ HEADERS += mainwindow.h \
     droga.h \
     chodnik.h \
     budynek.h \
-    zadaniekontrolne.h \
-    punktkontrolny.h
+    zadaniaKontrolne/zadaniekontrolne.h \
+    zadaniaKontrolne/punktkontrolny.h
 FORMS += mainwindow.ui
 OTHER_FILES += texture.vert \
     texture.frag \

@@ -24,6 +24,7 @@ Gra::Gra()
 
     mPojazd.stop();
 
+    Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
     widok = Z_GORY;
 
     {

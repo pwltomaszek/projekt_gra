@@ -9,7 +9,7 @@ class Node;
 class Budynek : public Przeszkoda
 {
 public:
-    Budynek( uint rx, uint ry, float dx = 0, float dy = 0 );
+    Budynek( uint rx, uint ry, uint rz, float dx = 0, float dy = 0 );
     virtual void rysuj();
     virtual void przeliczObszarKolizji( uint x, uint y );
 
