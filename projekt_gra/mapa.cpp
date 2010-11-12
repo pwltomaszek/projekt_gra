@@ -9,17 +9,20 @@ Mapa::Mapa()
 //    memset( mapa, 0, 15 * sizeof( vector< Przeszkoda* > ) );
 
     //budynki
-    dodajPrzeszkode( new Budynek( 20, 1 ) );
-    dodajPrzeszkode( new Budynek( 2, 1 ), 0, 2 );
+
+    dodajPrzeszkode( new Budynek( 20, 4 ), 3, 3 );
+
+   // dodajPrzeszkode( new Budynek( 2, 1 ), 0, 2 );
 
     //chodniki
-    dodajPrzeszkode( new Chodnik( 1, 1 ), 0, 1 );
-    dodajPrzeszkode( new Chodnik( 1, 2 ), 4, 1 );
-    dodajPrzeszkode( new Chodnik( 1, 1 ), 2, 2 );
+//    dodajPrzeszkode( new Chodnik( 20, 1 ), 0, 5 );
+//    dodajPrzeszkode( new Chodnik( 20, 2 ), 0, 12 );
 
-//    //drogi
-    dodajPrzeszkode( new Droga( Droga::WschodZachod, 1, 1 ), 3, 2 );
-    dodajPrzeszkode( new Droga( Droga::PolnocPoludnie, 3, 1 ), 1, 1 );
+////    //drogi
+//    dodajPrzeszkode( new Droga( Droga::WschodZachod, 1, 1 ), 3, 2 );
+//    dodajPrzeszkode( new Droga( Droga::PolnocPoludnie, 50, 6 ), 0, 6 );
+
+    //dodajPrzeszkode( new PunktKontrolny );
 }
 
 void Mapa::rysuj()

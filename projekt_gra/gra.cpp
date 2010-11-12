@@ -46,7 +46,7 @@ Gra::Gra()
         ColladaMeshFactory factory( 0, "camaro.dae" );
         factory.readFromFile( "camaro.mesh" );
         mPojazd.mesh = factory.getScene( "Camaro" );
-        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 7, 5, 0.f ) );
+        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 10, 0.f ) );
         mPojazd.mesh->calculateTransformMatrix();
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
@@ -74,7 +74,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -7.f ) );
+                                     -35.f ) );
             break;
         }
         case FPP:{
