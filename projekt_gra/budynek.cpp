@@ -18,7 +18,7 @@ void Budynek::rysuj()
 
     for( uint a = 0; a < rozmiarX; ++a )
         for( uint b = 0; b < rozmiarY; ++b )
-            for( uint c = 0; c < rozmiarY; ++c ){
+            for( uint c = 0; c < rozmiarZ; ++c ){
                 gl.pushMatrix();
                 gl.translate( glm::vec3( a, b, c ) );
 
