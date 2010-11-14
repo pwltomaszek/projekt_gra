@@ -3,12 +3,14 @@
 
 #include "zadaniekontrolne.h"
 
-class PunktKontrolny : Przeszkoda
+class PunktKontrolny : public Przeszkoda
 {
 public:
     PunktKontrolny();
-    void dzialanie( const Pojazd *pojazd );
+    PunktKontrolny(uint szer, uint dl, float dx = 0, float dy = 0);
 
+    void przeliczObszarKolizji(uint x, uint y);
+    void dzialanie( const Pojazd *pojazd );
 };
 
 

@@ -18,13 +18,17 @@ Przeszkoda::Przeszkoda(float rx, float ry, float rz, float dx, float dy)
     this->rozmiarX = rx;
     this->rozmiarY = ry;
     this->rozmiarZ = rz;
+
+    koliduje = false;
 }
 
-bool Przeszkoda::koliduje(const Pojazd *pojazd)
+bool Przeszkoda::czyKolidujeZPojazdem(const Pojazd *pojazd)
 {
+    bool tmp =  boost::geometry::intersects( this->obszarKolizji, pojazd->obszarKolizji );
+    koliduje = tmp;
     dzialanie(pojazd);
 
-    return boost::geometry::intersects( this->obszarKolizji, pojazd->obszarKolizji );
+    return tmp;
 }
 
 void Przeszkoda::stworzMeshKolizji()

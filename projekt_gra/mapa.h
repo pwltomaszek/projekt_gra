@@ -18,7 +18,8 @@ public:
 
     void dodajPrzeszkode( Przeszkoda *przeszkoda, uint x = 0, uint y = 0 );
 
-    bool zachodziKolizja( const Pojazd *pojazd );
+    bool zachodziKolizjaFizyczna( const Pojazd *pojazd );
+    bool zachodziKolizjaZZadaniem( const Pojazd *pojazd );
     void rysuj();
 //    void ustawPrzeszkody();
 

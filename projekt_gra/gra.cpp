@@ -24,7 +24,7 @@ Gra::Gra()
 
     mPojazd.stop();
 
-    Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
+    //Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
     widok = Z_GORY;
 
     {
@@ -48,9 +48,34 @@ Gra::Gra()
     {
         ColladaMeshFactory factory( 0, "camaro.dae" );
         factory.readFromFile( "camaro.mesh" );
-        mPojazd.mesh = factory.getScene( "Camaro" );
+        mPojazd.mesh = factory.getScene( "Camaro" );            
         mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 10, 0.f ) );
         mPojazd.mesh->calculateTransformMatrix();
+
+        m2.mesh = factory.getScene( "Camaro" );
+        m2.polozenie = glm::translate( m2.polozenie, glm::vec3( 4, 10, 0.f ) );
+        m2.mesh->calculateTransformMatrix();
+
+        m7.mesh = factory.getScene( "Camaro" );
+        m7.polozenie = glm::translate( m7.polozenie, glm::vec3( 30, 10, 0.f ) );
+        m7.mesh->calculateTransformMatrix();
+
+        m6.mesh = factory.getScene( "Camaro" );
+        m6.polozenie = glm::translate( m6.polozenie, glm::vec3( 25, 10, 0.f ) );
+        m6.mesh->calculateTransformMatrix();
+
+        m5.mesh = factory.getScene( "Camaro" );
+        m5.polozenie = glm::translate( m5.polozenie, glm::vec3( 20, 10, 0.f ) );
+        m5.mesh->calculateTransformMatrix();
+
+        m4.mesh = factory.getScene( "Camaro" );
+        m4.polozenie = glm::translate( m4.polozenie, glm::vec3( 15, 10, 0.f ) );
+        m4.mesh->calculateTransformMatrix();
+
+        m3.mesh = factory.getScene( "Camaro" );
+        m3.polozenie = glm::translate( m3.polozenie, glm::vec3( 10, 10, 0.f ) );
+        m3.mesh->calculateTransformMatrix();
+
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
 
@@ -87,7 +112,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -35.f ) );
+                                     -50.f ) );
             break;
         }
         case FPP:{
@@ -102,6 +127,13 @@ void Gra::rysuj()
 
     mMapa.rysuj();
     mPojazd.rysuj();
+//    m2.rysuj();
+//    m3.rysuj();
+//    m4.rysuj();
+//    m5.rysuj();
+//    m6.rysuj();
+//    m7.rysuj();
+
 }
 
 void Gra::petla()
@@ -194,7 +226,11 @@ void Gra::przesunGracza(){
 
     mPojazd.przeliczObszarKolizji();
 
-    if( mMapa.zachodziKolizja( &mPojazd ) ) {
+    if( mMapa.zachodziKolizjaFizyczna( &mPojazd ) ) {
         mPojazd.cofnijPoKolizji( backup );
+    }
+
+    if( mMapa.zachodziKolizjaZZadaniem( &mPojazd ) ){
+        //to cos
     }
 }

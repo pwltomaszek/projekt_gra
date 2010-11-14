@@ -501,3 +501,8 @@ void GLWrapper::scale(const float &ratio)
 {
     mModelViewMatrix = glm::scale( mModelViewMatrix, glm::vec3( ratio ) );
 }
+
+void GLWrapper::scale( const float &x, const float &y, const float &z )
+{
+    mModelViewMatrix = glm::scale( mModelViewMatrix, glm::vec3( x, y, z ) );
+}

@@ -16,18 +16,14 @@ void Budynek::rysuj()
 {
     GLWrapper &gl = GLWrapper::instance();
 
-    for( uint a = 0; a < rozmiarX; ++a )
-        for( uint b = 0; b < rozmiarY; ++b )
-            for( uint c = 0; c < rozmiarZ; ++c ){
-                gl.pushMatrix();
-                gl.translate( glm::vec3( a, b, c ) );
+        gl.pushMatrix();
+        gl.scale( rozmiarX, rozmiarY, rozmiarZ );
 
-                mesh->draw();
+        mesh->draw();
 
-                gl.popMatrix();
-            }
+        gl.popMatrix();
 
-    Przeszkoda::rysuj();
+        Przeszkoda::rysuj();
 }
 
 void Budynek::przeliczObszarKolizji(uint x, uint y)

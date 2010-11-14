@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     FramesPerSec( 60 )
 {
     ui->setupUi(this);
-
+    ui->pushButton->setDefault( true );
     ilInit();
 }
 

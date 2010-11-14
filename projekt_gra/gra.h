@@ -29,7 +29,7 @@ private:
     void przetworzLogikeGry();
 
     Mapa mMapa;
-    Pojazd mPojazd;
+    Pojazd mPojazd, m2, m3, m4, m5, m6, m7;
 
     std::map< int, bool > mKlawisze;
 

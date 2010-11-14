@@ -53,6 +53,7 @@ public:
     void pushMatrix();
     void rotate( const float &angle, const glm::vec3 &vec );
     void scale( const float &ratio );
+    void scale( const float &x, const float &y, const float &z );
     void setPerspective( float angle, float aspectRatio, float near, float far );
     void translate( const glm::vec3 &vec );
     void updateBuffer( const int &dataPosition, Mesh *mesh,

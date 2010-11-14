@@ -12,7 +12,7 @@
 #define MAX_PREDKOSC            100
 //#define MAX_KAT                 180
 //TODO: najlepiej by przyspieszenie nie bylo stale, a zalezne od aktualnej predkosci, skretu, etc.
-#define PRZYSPIESZENIE          0.05
+#define PRZYSPIESZENIE          0.1
 
 Pojazd::Pojazd()
 {
@@ -58,18 +58,18 @@ void Pojazd::ruchSwobodny(){
 
 void Pojazd::przeliczObszarKolizji()
 {    
-//    qDebug()<<"predkosc km/h: " << predkosc*6;
+    //qDebug()<<"predkosc km/h: " << predkosc*6;
 
     zmianaKata = 0;
     dx = dy = dz = 0;
 
     if( skretL )
         if ( fabs(predkosc) > 0.1 )
-            zmianaKata = 80 ;
+            zmianaKata = 120 ;
 
     if( skretP )
         if ( fabs(predkosc) > 0.1 )
-            zmianaKata = -80;
+            zmianaKata = -120;
 
     if( zahamowanie ){
         int znak = 1;

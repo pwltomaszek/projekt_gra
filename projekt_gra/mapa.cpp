@@ -1,26 +1,28 @@
+#include <QDebug>
+
 #include "budynek.h"
 #include "chodnik.h"
 #include "droga.h"
 #include "mapa.h"
 #include "zadaniaKontrolne/punktkontrolny.h"
 
+
 Mapa::Mapa()
 {
 //    memset( mapa, 0, 15 * sizeof( vector< Przeszkoda* > ) );
 
     //budynki
-
-    dodajPrzeszkode( new Budynek( 100, 4, 7 ), 0, 0 );
+    dodajPrzeszkode( new Budynek( 2, 1, 3 ), 0, 0 );
 
     //chodniki
-    dodajPrzeszkode( new Chodnik( 100, 1 ), 0, 12 );
-    dodajPrzeszkode( new Chodnik( 100, 2 ), 0, 4 );
+    //dodajPrzeszkode( new Chodnik( 100, 1 ), 0, 12 );
+    //dodajPrzeszkode( new Chodnik( 100, 2 ), 0, 4 );
 
     //drogi
-    dodajPrzeszkode( new Droga( Droga::WschodZachod, 100, 6 ), 0, 6 );
+    //dodajPrzeszkode( new Droga( Droga::WschodZachod, 100, 6 ), 0, 6 );
 
     //zadania kontrolne
-    //dodajPrzeszkode( new PunktKontrolny );
+    dodajPrzeszkode( new PunktKontrolny(5, 5), 10, 0);
 }
 
 void Mapa::rysuj()
@@ -43,14 +45,25 @@ void Mapa::rysuj()
     }
 }
 
-bool Mapa::zachodziKolizja(const Pojazd *pojazd)
+bool Mapa::zachodziKolizjaFizyczna(const Pojazd *pojazd)
 {
-    bool check = false;
+   // bool check = false;
     for( unsigned int i = 0; i < przeszkody.size(); ++i )
-        if( przeszkody.at( i )->koliduje( pojazd ) )
-            check = true;
+        if( dynamic_cast<Budynek*>(przeszkody.at( i )) != NULL
+                && przeszkody.at( i )->czyKolidujeZPojazdem( pojazd ) )
+            return true;
 
-    return check;
+    return false;
+}
+
+bool Mapa::zachodziKolizjaZZadaniem(const Pojazd *pojazd)
+{
+    for( unsigned int i = 0; i < przeszkody.size(); ++i )
+        if( dynamic_cast<PunktKontrolny*>(przeszkody.at( i )) != NULL
+                && przeszkody.at( i )->czyKolidujeZPojazdem( pojazd ) );
+           //przeszkody.at( i )->dzialanie( pojazd );
+
+      return NULL;
 }
 
 void Mapa::dodajPrzeszkode(Przeszkoda *przeszkoda, uint x, uint y)
