@@ -10,7 +10,8 @@ bool Przeszkoda::rysujObszKolizji = true;
 using namespace std;
 
 Przeszkoda::Przeszkoda(float rx, float ry, float rz, float dx, float dy)
-    : obszarKolizjiMesh( 0 )
+    : obszarKolizjiMesh( 0 ),
+      mMesh( 0 )
 {
     this->przesuniecieX = dx;
     this->przesuniecieY = dy;
@@ -54,4 +55,19 @@ void Przeszkoda::rysujObszarKolizji()
 
     GLWrapper &gl = GLWrapper::instance();
     gl.draw( obszarKolizjiMesh );
+}
+
+void Przeszkoda::rysuj()
+{
+    if( !mMesh )
+        return;
+
+    GLWrapper &gl = GLWrapper::instance();
+
+    gl.pushMatrix();
+    gl.scale( rozmiarX, rozmiarY, rozmiarZ );
+
+    mMesh->draw();
+
+    gl.popMatrix();
 }

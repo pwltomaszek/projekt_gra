@@ -14,6 +14,7 @@ class Gra
 {
 public:
     Gra();
+    ~Gra();
 
     void klawiszWcisniety( int klawisz );
     void klawiszZwolniony( int klawisz );
@@ -28,7 +29,7 @@ private:
     void przesunGracza();
     void przetworzLogikeGry();
 
-    Mapa mMapa;
+    Mapa *mMapa;
     Pojazd mPojazd, m2, m3, m4, m5, m6, m7;
 
     std::map< int, bool > mKlawisze;

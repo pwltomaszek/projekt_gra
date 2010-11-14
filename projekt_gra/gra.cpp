@@ -29,52 +29,55 @@ Gra::Gra()
 
     {
         ColladaMeshFactory factory( 0, "budynek.dae" );
-        Budynek::mesh = factory.getScene( "Budynek" );
-        Budynek::mesh->calculateTransformMatrix();
+        Node* node = factory.getScene( "Budynek" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Budynek", node );
     }
 
     {
         ColladaMeshFactory factory( 0, "chodnik.dae" );
-        Chodnik::mesh = factory.getScene( "Chodnik" );
-        Chodnik::mesh->calculateTransformMatrix();
+        Node* node = factory.getScene( "Chodnik" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Chodnik", node );
     }
 
     {
         ColladaMeshFactory factory( 0, "droga.dae" );
-        Droga::mesh = factory.getScene( "Droga" );
-        Droga::mesh->calculateTransformMatrix();
+        Node* node = factory.getScene( "Droga" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Droga", node );
     }
 
     {
         ColladaMeshFactory factory( 0, "camaro.dae" );
         factory.readFromFile( "camaro.mesh" );
-        mPojazd.mesh = factory.getScene( "Camaro" );            
+        mPojazd.mMesh = factory.getScene( "Camaro" );
         mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 10, 0.f ) );
-        mPojazd.mesh->calculateTransformMatrix();
+        mPojazd.mMesh->calculateTransformMatrix();
 
-        m2.mesh = factory.getScene( "Camaro" );
+        m2.mMesh = factory.getScene( "Camaro" );
         m2.polozenie = glm::translate( m2.polozenie, glm::vec3( 4, 10, 0.f ) );
-        m2.mesh->calculateTransformMatrix();
+        m2.mMesh->calculateTransformMatrix();
 
-        m7.mesh = factory.getScene( "Camaro" );
+        m7.mMesh = factory.getScene( "Camaro" );
         m7.polozenie = glm::translate( m7.polozenie, glm::vec3( 30, 10, 0.f ) );
-        m7.mesh->calculateTransformMatrix();
+        m7.mMesh->calculateTransformMatrix();
 
-        m6.mesh = factory.getScene( "Camaro" );
+        m6.mMesh = factory.getScene( "Camaro" );
         m6.polozenie = glm::translate( m6.polozenie, glm::vec3( 25, 10, 0.f ) );
-        m6.mesh->calculateTransformMatrix();
+        m6.mMesh->calculateTransformMatrix();
 
-        m5.mesh = factory.getScene( "Camaro" );
+        m5.mMesh = factory.getScene( "Camaro" );
         m5.polozenie = glm::translate( m5.polozenie, glm::vec3( 20, 10, 0.f ) );
-        m5.mesh->calculateTransformMatrix();
+        m5.mMesh->calculateTransformMatrix();
 
-        m4.mesh = factory.getScene( "Camaro" );
+        m4.mMesh = factory.getScene( "Camaro" );
         m4.polozenie = glm::translate( m4.polozenie, glm::vec3( 15, 10, 0.f ) );
-        m4.mesh->calculateTransformMatrix();
+        m4.mMesh->calculateTransformMatrix();
 
-        m3.mesh = factory.getScene( "Camaro" );
+        m3.mMesh = factory.getScene( "Camaro" );
         m3.polozenie = glm::translate( m3.polozenie, glm::vec3( 10, 10, 0.f ) );
-        m3.mesh->calculateTransformMatrix();
+        m3.mMesh->calculateTransformMatrix();
 
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
@@ -88,6 +91,14 @@ Gra::Gra()
 //    memcpy( obszarKolizjiMat->diffuse, czerwony, 4 * sizeof( float ) );
 
 //    Mesh::addMaterial( "czerwienAlpha", obszarKolizjiMat );
+
+    // mapê nale¿y tworzyæ po wczytaniu wszystkich meshy
+    mMapa = new Mapa;
+}
+
+Gra::~Gra()
+{
+    delete mMapa;
 }
 
 void Gra::rysuj()
@@ -125,7 +136,7 @@ void Gra::rysuj()
         }
     }
 
-    mMapa.rysuj();
+    mMapa->rysuj();
     mPojazd.rysuj();
 //    m2.rysuj();
 //    m3.rysuj();
@@ -226,11 +237,11 @@ void Gra::przesunGracza(){
 
     mPojazd.przeliczObszarKolizji();
 
-    if( mMapa.zachodziKolizjaFizyczna( &mPojazd ) ) {
+    if( mMapa->zachodziKolizjaFizyczna( &mPojazd ) ) {
         mPojazd.cofnijPoKolizji( backup );
     }
 
-    if( mMapa.zachodziKolizjaZZadaniem( &mPojazd ) ){
+    if( mMapa->zachodziKolizjaZZadaniem( &mPojazd ) ){
         //to cos
     }
 }

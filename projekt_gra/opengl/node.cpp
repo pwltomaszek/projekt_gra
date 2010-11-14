@@ -9,6 +9,8 @@
 
 using namespace std;
 
+PairVector< string, Node* > Node::mNodes;
+
 Node::Node()
     : mTransformationMatrix( 1.f )
 {
@@ -90,4 +92,14 @@ void Node::processTransformations()
             qDebug() << "Oops!";
         }
     }
+}
+
+Node* Node::node(const std::string &name)
+{
+    return mNodes.at( name );
+}
+
+void Node::addNode(const std::string &name, Node *node)
+{
+    mNodes.push_back( name, node );
 }

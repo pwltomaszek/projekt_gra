@@ -5,25 +5,10 @@
 #include "opengl/mesh.h"
 #include "opengl/opengl.h"
 
-Node* Budynek::mesh;
-
 Budynek::Budynek(uint szer, uint dl, uint wys, float dx, float dy)
     : Przeszkoda( szer, dl, wys, dx, dy )
 {
-}
-
-void Budynek::rysuj()
-{
-    GLWrapper &gl = GLWrapper::instance();
-
-        gl.pushMatrix();
-        gl.scale( rozmiarX, rozmiarY, rozmiarZ );
-
-        mesh->draw();
-
-        gl.popMatrix();
-
-        Przeszkoda::rysuj();
+    this->mMesh = Node::node( "Budynek" );
 }
 
 void Budynek::przeliczObszarKolizji(uint x, uint y)

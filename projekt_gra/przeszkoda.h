@@ -7,8 +7,10 @@
 
 #include "opengl/glmadapter.h"
 #include "opengl/opengl.h"
+
 typedef unsigned int uint;
 
+class Node;
 class Pojazd;
 
 class Przeszkoda
@@ -18,7 +20,7 @@ public:
 
     bool czyKolidujeZPojazdem( const Pojazd *pojazd );
     virtual void przeliczObszarKolizji( uint x, uint y ) {}
-    virtual void rysuj() {}
+    virtual void rysuj();
 
     void rysujObszarKolizji();
     void stworzMeshKolizji();
@@ -34,6 +36,7 @@ protected:
 
     // do testowania
     Mesh *obszarKolizjiMesh;
+    Node *mMesh;
 };
 
 #endif // PRZESZKODA_H

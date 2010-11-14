@@ -30,7 +30,7 @@ void Pojazd::rysuj()
     gl.multMatrix( polozenie );
     glCullFace( GL_FRONT );
 
-    mesh->draw();
+    mMesh->draw();
 
     glCullFace( GL_BACK );
 

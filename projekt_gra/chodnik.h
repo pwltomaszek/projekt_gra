@@ -9,9 +9,6 @@ class Chodnik : public Przeszkoda
 {
 public:
     Chodnik( float rx, float ry );
-    virtual void rysuj();
-
-    static Node *mesh;
 };
 
 #endif // CHODNIK_H

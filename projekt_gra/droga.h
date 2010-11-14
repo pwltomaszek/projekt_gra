@@ -3,8 +3,6 @@
 
 #include "przeszkoda.h"
 
-class Node;
-
 class Droga : public Przeszkoda
 {
 public:
@@ -14,9 +12,6 @@ public:
     };
 
     Droga( Kierunek kierunek, float rx, float ry );
-    virtual void rysuj();
-
-    static Node *mesh;
 
 private:
     enum Kierunek kierunek;
