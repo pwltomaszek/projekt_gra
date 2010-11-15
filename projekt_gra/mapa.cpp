@@ -12,19 +12,23 @@ Mapa::Mapa()
 //    memset( mapa, 0, 15 * sizeof( vector< Przeszkoda* > ) );
 
     //budynki
-    dodajPrzeszkode( new Budynek( 2, 7, 3 ), 0, 0 );
+    dodajPrzeszkode( new Budynek( 100, 4, 1 ), 0, 0 );
 
-    dodajPrzeszkode( new Budynek( 200, 100, 6 ), 10, 20 );
-
-    //chodniki
-    dodajPrzeszkode( new Chodnik( 100, 1 ), 0, 12 );
+    //chodniki - najlepiej by caly obszar byl chodnikiem, a reszta obiektow go nadrysowala
+    dodajPrzeszkode( new Chodnik( 50, 1 ), 0, 12 );
+    dodajPrzeszkode( new Chodnik( 44, 1 ), 56, 12 );
     dodajPrzeszkode( new Chodnik( 100, 2 ), 0, 4 );
 
     //drogi
-    dodajPrzeszkode( new Droga( Droga::WschodZachod, 100, 6 ), 0, 6 );
+    dodajPrzeszkode( new Droga( Droga::WschodZachod, 50, 6 ), 0, 6 );
+    dodajPrzeszkode( new Droga( Droga::Skrzyzowanie, 6, 6 ), 50, 6 );
+    dodajPrzeszkode( new Droga( Droga::WschodZachod, 44, 6 ), 56, 6 );
+    dodajPrzeszkode( new Droga( Droga::PolnocPoludnie, 6, 20 ), 50, 12 );
+
 
     //zadania kontrolne
-    dodajPrzeszkode( new PunktKontrolny(5, 5), 10, 0);
+    dodajPrzeszkode( new PunktKontrolny(1, 6), 59, 6);
+    dodajPrzeszkode( new PunktKontrolny(6, 1), 50, 15);
 }
 
 void Mapa::rysuj()

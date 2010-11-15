@@ -8,7 +8,8 @@ class Droga : public Przeszkoda
 public:
     enum Kierunek {
         PolnocPoludnie,
-        WschodZachod
+        WschodZachod,
+        Skrzyzowanie
     };
 
     Droga( Kierunek kierunek, float rx, float ry );

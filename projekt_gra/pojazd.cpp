@@ -9,10 +9,10 @@
 #include "opengl/opengl.h"
 #include <math.h>
 
-#define MAX_PREDKOSC            100
-//#define MAX_KAT                 180
+#define MAX_PREDKOSC            30
+#define MAX_KAT                 80
 //TODO: najlepiej by przyspieszenie nie bylo stale, a zalezne od aktualnej predkosci, skretu, etc.
-#define PRZYSPIESZENIE          0.1
+#define PRZYSPIESZENIE          0.01
 
 Pojazd::Pojazd()
 {
@@ -58,58 +58,64 @@ void Pojazd::ruchSwobodny(){
 
 void Pojazd::przeliczObszarKolizji()
 {    
-    //qDebug()<<"predkosc km/h: " << predkosc*6;
+    //qDebug()<<"predkosc km/h: " << predkosc*3;
 
-    zmianaKata = 0;
     dx = dy = dz = 0;
 
-    if( skretL )
-        if ( fabs(predkosc) > 0.1 )
-            zmianaKata = 120 ;
-
-    if( skretP )
-        if ( fabs(predkosc) > 0.1 )
-            zmianaKata = -120;
+    if( skretL && fabs(zmianaKata) < MAX_KAT){
+        if ( predkosc > 0.1)
+            zmianaKata += 3;
+        else if( predkosc < -0.1 )
+            zmianaKata -= 3;
+    }else if( skretP && fabs(zmianaKata) < MAX_KAT){
+        if ( predkosc > 0.1)
+            zmianaKata -= 3;
+        else if( predkosc < -0.1 )
+            zmianaKata += 3;
+    }else{                     //wspomaganie kierownicy
+        if (zmianaKata > 0)
+            zmianaKata -= 6;
+        else if(zmianaKata < 0)
+            zmianaKata += 6;
+    }
 
     if( zahamowanie ){
         int znak = 1;
         if ( predkosc < 0 ) znak = -1;
         predkosc = fabs(predkosc);
-        predkosc -= PRZYSPIESZENIE*6;
+        predkosc -= PRZYSPIESZENIE*15;
 
         predkosc *= znak;
         dy += predkosc;
     }else if( wPrzod ){
         if( predkosc <0 )
             predkosc += PRZYSPIESZENIE;
-        predkosc += PRZYSPIESZENIE*3;
+        predkosc += PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy >= MAX_PREDKOSC )
             dy = MAX_PREDKOSC;
     }else if( wTyl ){
         if( predkosc >0 )
             predkosc -= PRZYSPIESZENIE;
-        predkosc -= PRZYSPIESZENIE*3;
+        predkosc -= PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy <= -MAX_PREDKOSC/5 )
             dy = -MAX_PREDKOSC/5;
     }
 
-    if( predkosc < 0.1 )  //dla cofania
-        zmianaKata *= -1;
-
     ruchSwobodny();
 
     predkosc = dy;
 
-    zmianaKata *= mTimeDelta;
+    float zmianaKataTmp = zmianaKata * mTimeDelta;
+
     dx *= mTimeDelta;
     dy *= mTimeDelta;
     dz *= mTimeDelta;
 
-    polozenie = glm::rotate( polozenie, zmianaKata, glm::vec3( 0.f, 0.f, 1.f ) );
+    polozenie = glm::rotate( polozenie, zmianaKataTmp, glm::vec3( 0.f, 0.f, 1.f ) );
     polozenie = glm::translate( polozenie, glm::vec3( dx, -dy, dz ) );
-    kat += zmianaKata;
+    kat += zmianaKataTmp;
 
 
     glm::vec2 punkty[] = { glm::vec2( 0.7, 2 ),
@@ -121,11 +127,7 @@ void Pojazd::przeliczObszarKolizji()
         punkty[ i ] = glm::rotate( punkty[ i ], kat );
         punkty[ i ][ 0 ] += polozenie[ 3 ][ 0 ];
         punkty[ i ][ 1 ] += polozenie[ 3 ][ 1 ];
-//        qDebug() << punkty[ i ][ 0 ] << punkty[ i ][ 1 ];
     }
-//    qDebug() << "";
-
-//    qDebug() << polozenie[ 3 ][ 0 ] << polozenie[ 3 ][ 1 ];
 
     float coords[ 5 ][ 2 ];
     for( int i = 0; i < 5; ++i ) {

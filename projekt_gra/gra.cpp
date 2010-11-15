@@ -25,7 +25,7 @@ Gra::Gra()
     mPojazd.stop();
 
     //Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
-    widok = Z_GORY;
+    widok = FPP;
 
     {
         ColladaMeshFactory factory( 0, "budynek.dae" );
