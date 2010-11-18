@@ -89,14 +89,14 @@ void Pojazd::przeliczObszarKolizji()
         dy += predkosc;
     }else if( wPrzod ){
         if( predkosc <0 )
-            predkosc += PRZYSPIESZENIE;
+            predkosc += PRZYSPIESZENIE*5;
         predkosc += PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy >= MAX_PREDKOSC )
             dy = MAX_PREDKOSC;
     }else if( wTyl ){
         if( predkosc >0 )
-            predkosc -= PRZYSPIESZENIE;
+            predkosc -= PRZYSPIESZENIE*5;
         predkosc -= PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy <= -MAX_PREDKOSC/5 )
