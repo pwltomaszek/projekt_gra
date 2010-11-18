@@ -26,17 +26,21 @@ public:
     void stworzMeshKolizji();
     static bool rysujObszKolizji;    
 
+
+
+
 protected:
     void virtual dzialanie( const Pojazd *pojazd ) {}
     boost::geometry::polygon_2d obszarKolizji;
     float przesuniecieX, przesuniecieY;
     float rozmiarX, rozmiarY, rozmiarZ;
 
-    bool koliduje;
+
+    bool koliduje;    
 
     // do testowania
     Mesh *obszarKolizjiMesh;
-    Node *mMesh;
+    Node *mMesh;   
 };
 
 #endif // PRZESZKODA_H

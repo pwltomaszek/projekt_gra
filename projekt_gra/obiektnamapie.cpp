@@ -4,9 +4,18 @@
 
 ObiektNaMapie::ObiektNaMapie()
 {
+    x = y = 0;
 }
 
-void ObiektNaMapie::rysuj(uint i, uint j)
+ObiektNaMapie::ObiektNaMapie(uint x, uint y)
 {
+    this->x = x;
+    this->y = y;
+}
 
+ObiektNaMapie::ObiektNaMapie(Przeszkoda *przeszkoda, uint x, uint y)
+{
+    this->przeszkoda = przeszkoda;
+    this->x = x;
+    this->y = y;
 }

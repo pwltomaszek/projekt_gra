@@ -25,7 +25,7 @@ Gra::Gra()
     mPojazd.stop();
 
     //Przeszkoda::rysujObszKolizji = !Przeszkoda::rysujObszKolizji;
-    widok = FPP;
+    widok = Z_GORY;
 
     {
         ColladaMeshFactory factory( 0, "budynek.dae" );
@@ -52,32 +52,8 @@ Gra::Gra()
         ColladaMeshFactory factory( 0, "camaro.dae" );
         factory.readFromFile( "camaro.mesh" );
         mPojazd.mMesh = factory.getScene( "Camaro" );
-        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 10, 0.f ) );
+        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 15, 0.f ) );
         mPojazd.mMesh->calculateTransformMatrix();
-
-        m2.mMesh = factory.getScene( "Camaro" );
-        m2.polozenie = glm::translate( m2.polozenie, glm::vec3( 4, 10, 0.f ) );
-        m2.mMesh->calculateTransformMatrix();
-
-        m7.mMesh = factory.getScene( "Camaro" );
-        m7.polozenie = glm::translate( m7.polozenie, glm::vec3( 30, 10, 0.f ) );
-        m7.mMesh->calculateTransformMatrix();
-
-        m6.mMesh = factory.getScene( "Camaro" );
-        m6.polozenie = glm::translate( m6.polozenie, glm::vec3( 25, 10, 0.f ) );
-        m6.mMesh->calculateTransformMatrix();
-
-        m5.mMesh = factory.getScene( "Camaro" );
-        m5.polozenie = glm::translate( m5.polozenie, glm::vec3( 20, 10, 0.f ) );
-        m5.mMesh->calculateTransformMatrix();
-
-        m4.mMesh = factory.getScene( "Camaro" );
-        m4.polozenie = glm::translate( m4.polozenie, glm::vec3( 15, 10, 0.f ) );
-        m4.mMesh->calculateTransformMatrix();
-
-        m3.mMesh = factory.getScene( "Camaro" );
-        m3.polozenie = glm::translate( m3.polozenie, glm::vec3( 10, 10, 0.f ) );
-        m3.mMesh->calculateTransformMatrix();
 
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
@@ -109,17 +85,17 @@ void Gra::rysuj()
     gl.loadIdentity();
 
     switch( widok ){
-        case PSYCHO:{
-            gl.rotate( 180.f, glm::vec3( 0.f, 1.f, 0.f ) );
-            gl.translate( glm::vec3( 0.f, 0.7, 1.2 ) );
-            gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
-            gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
-            gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
-            gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                     -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -1.f ) );
-            break;
-        }
+//        case PSYCHO:{
+//            gl.rotate( 180.f, glm::vec3( 0.f, 1.f, 0.f ) );
+//            gl.translate( glm::vec3( 0.f, 0.7, 1.2 ) );
+//            gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
+//            gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
+//            gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
+//            gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
+//                                     -mPojazd.polozenie[ 3 ][ 1 ],
+//                                     -1.f ) );
+//            break;
+//        }
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
@@ -138,13 +114,6 @@ void Gra::rysuj()
 
     mMapa->rysuj();
     mPojazd.rysuj();
-//    m2.rysuj();
-//    m3.rysuj();
-//    m4.rysuj();
-//    m5.rysuj();
-//    m6.rysuj();
-//    m7.rysuj();
-
 }
 
 void Gra::petla()

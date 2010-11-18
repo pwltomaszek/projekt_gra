@@ -1,13 +1,19 @@
 #ifndef ZADANIEKONTROLNE_H
 #define ZADANIEKONTROLNE_H
 
-#include "obiektnamapie.h"
 #include "przeszkoda.h"
+#include "powiazaniezadan.h"
 
-class ZadanieKontrolne : public Przeszkoda
+class PowiazanieZadan;
+
+class ZadanieKontrolne : public virtual Przeszkoda
 {
-  public:
+public:
     ZadanieKontrolne();
+
+//protected:
+    PowiazanieZadan *kontenerPowiazania;
+    bool sprawdzajKolizje;
 };
 
 #endif // ZADANIEKONTROLNE_H

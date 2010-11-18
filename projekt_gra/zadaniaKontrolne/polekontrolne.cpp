@@ -1,26 +1,29 @@
+#include "polekontrolne.h"
 #include <QDebug>
 
-#include "punktkontrolny.h"
+PoleKontrolne::PoleKontrolne()
+{
+}
 
-PunktKontrolny::PunktKontrolny(uint szer, uint dl, float dx, float dy)
+PoleKontrolne::PoleKontrolne(uint szer, uint dl, float dx, float dy)
     : Przeszkoda( szer, dl, 0, dx, dy )
 {
     sprawdzajKolizje = true;
 }
 
-void PunktKontrolny::dzialanie(const Pojazd *pojazd){
+void PoleKontrolne::dzialanie(const Pojazd *pojazd){
     //warunek moze zostac spelniony tylko raz w grze
     if( sprawdzajKolizje == true && koliduje == true ){
         sprawdzajKolizje = false;
 
         //TU ustawiac punkty karmy
-        qDebug() << "wjechano w PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+        qDebug() << "wjechano w PoleK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
         foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane)
             el->sprawdzajKolizje = false;
     }
 }
 
-void PunktKontrolny::przeliczObszarKolizji(uint x, uint y)
+void PoleKontrolne::przeliczObszarKolizji(uint x, uint y)
 {
     float coords[ 5 ][ 2 ] = { { 0.0, 0.0 },
                                { (float)rozmiarX, 0.0 },
@@ -35,4 +38,3 @@ void PunktKontrolny::przeliczObszarKolizji(uint x, uint y)
     assign( obszarKolizji, coords );
     correct( obszarKolizji );
 }
-

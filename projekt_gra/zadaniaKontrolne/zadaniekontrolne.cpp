@@ -3,5 +3,3 @@
 ZadanieKontrolne::ZadanieKontrolne()
 {
 }
-
-

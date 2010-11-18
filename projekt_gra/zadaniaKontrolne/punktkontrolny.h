@@ -1,9 +1,12 @@
 #ifndef PUNKTKONTROLNY_H
 #define PUNKTKONTROLNY_H
 
+#include "przeszkoda.h"
+#include "powiazanieZadan.h"
 #include "zadaniekontrolne.h"
 
-class PunktKontrolny : public Przeszkoda
+
+class PunktKontrolny : public ZadanieKontrolne
 {
 public:
     PunktKontrolny();
