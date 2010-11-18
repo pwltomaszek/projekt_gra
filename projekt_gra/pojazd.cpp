@@ -50,7 +50,7 @@ void Pojazd::ruchSwobodny(){
     int znak = 1; //+ lub - okreslaja ruch pojazdu w przod, tyl
     if ( predkosc < 0 ) znak = -1;
     predkosc = fabs(predkosc);
-    predkosc -= PRZYSPIESZENIE*0.7;
+    predkosc -= PRZYSPIESZENIE;
 
     predkosc *= znak;
     dy += predkosc;

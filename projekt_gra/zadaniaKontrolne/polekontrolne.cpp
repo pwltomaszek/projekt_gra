@@ -5,19 +5,31 @@ PoleKontrolne::PoleKontrolne()
 {
 }
 
-PoleKontrolne::PoleKontrolne(uint szer, uint dl, float dx, float dy)
+PoleKontrolne::PoleKontrolne(krawedz krWe, krawedz krWy, uint szer, uint dl, float dx, float dy)
     : Przeszkoda( szer, dl, 0, dx, dy )
 {
+    wjechanoOk = wyjechanoOk = false;
+    this->krWe = krWe;
+    this->krWy = krWy;
     sprawdzajKolizje = true;
 }
 
 void PoleKontrolne::dzialanie(const Pojazd *pojazd){
-    //warunek moze zostac spelniony tylko raz w grze
+    //cialo bedzie wygladalo mniej-wiecej tak:
+//    if( wjechanoOk ){
+//        qDebug() << "wjechano w PoleK";
+//        zliczanie predkosci, zabawy z timerem. co tam bedzie potrzeba
+//    }
+//    if( wjechanoOk && wyjechanoOk ){
+//        qDebug() << "wyjechano w PoleK po uprzednio dobrym wjechaniu ";
+//    }
+
+    //jak juz wjechano i wyjechano w porzadku, nastapi deazyktywacja tego zadania i z nim powiazanych.
+    //ewentualnie w poprzednim warunku. zrobie jak trzeba, gdy bede mial mozliwosc sprawdzania kolizji z krawedziami
     if( sprawdzajKolizje == true && koliduje == true ){
         sprawdzajKolizje = false;
 
-        //TU ustawiac punkty karmy
-        qDebug() << "wjechano w PoleK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+        //qDebug() << "zaliczono PoleK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
         foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane)
             el->sprawdzajKolizje = false;
     }

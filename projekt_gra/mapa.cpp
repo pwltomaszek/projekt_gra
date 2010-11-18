@@ -40,8 +40,8 @@ Mapa::Mapa()
 
     //zadania kontrolne - pola
     obiekty.clear();
-    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(30, 6), 70, 30 ) );
-    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(30, 6), 70, 6 ) );
+    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD, 30, 6), 70, 30 ) );
+    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD, 30, 6), 70, 6 ) );
     dodajIPowiazZadania( obiekty );
 }
 
