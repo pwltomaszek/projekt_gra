@@ -35,14 +35,16 @@ SOURCES += main.cpp \
     opengl/animationcontroller.cpp \
     opengl/animation.cpp \
     pojazd.cpp \
-    obiektnamapie.cpp \
     przeszkoda.cpp \
     mapa.cpp \
     droga.cpp \
     chodnik.cpp \
     budynek.cpp \
+    zadaniaKontrolne/punktkontrolny.cpp \
     zadaniaKontrolne/zadaniekontrolne.cpp \
-    zadaniaKontrolne/punktkontrolny.cpp
+    zadaniaKontrolne/powiazaniezadan.cpp \
+    obiektnamapie.cpp \
+    zadaniaKontrolne/polekontrolne.cpp
 HEADERS += mainwindow.h \
     glwidget.h \
     gra.h \
@@ -65,14 +67,16 @@ HEADERS += mainwindow.h \
     opengl/common.h \
     opengl/animation.h \
     pojazd.h \
-    obiektnamapie.h \
     przeszkoda.h \
     mapa.h \
     droga.h \
     chodnik.h \
     budynek.h \
+    zadaniaKontrolne/punktkontrolny.h \
     zadaniaKontrolne/zadaniekontrolne.h \
-    zadaniaKontrolne/punktkontrolny.h
+    zadaniaKontrolne/powiazaniezadan.h \
+    obiektnamapie.h \
+    zadaniaKontrolne/polekontrolne.h
 FORMS += mainwindow.ui
 OTHER_FILES += texture.vert \
     texture.frag \

@@ -1,7 +1,6 @@
 #ifndef BUDYNEK_H
 #define BUDYNEK_H
 
-#include "obiektnamapie.h"
 #include "przeszkoda.h"
 
 class Node;

@@ -40,7 +40,7 @@ private:
 
     //to do usuniecia
     enum widoki {
-        Z_GORY, FPP, PSYCHO, KONIEC
+        Z_GORY, FPP, /*PSYCHO,*/ KONIEC
     };
     enum widoki widok;
 };

@@ -5,11 +5,18 @@
 PunktKontrolny::PunktKontrolny(uint szer, uint dl, float dx, float dy)
     : Przeszkoda( szer, dl, 0, dx, dy )
 {
+    sprawdzajKolizje = true;
 }
 
 void PunktKontrolny::dzialanie(const Pojazd *pojazd){
-    if( this->koliduje == true ){
-        //qDebug() << "koliduje z zadaniem";
+    //warunek moze zostac spelniony tylko raz w grze
+    if( sprawdzajKolizje == true && koliduje == true ){
+        sprawdzajKolizje = false;
+
+        //TU ustawiac punkty karmy
+        qDebug() << "wjechano w PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+        foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane)
+            el->sprawdzajKolizje = false;
     }
 }
 
@@ -28,3 +35,4 @@ void PunktKontrolny::przeliczObszarKolizji(uint x, uint y)
     assign( obszarKolizji, coords );
     correct( obszarKolizji );
 }
+

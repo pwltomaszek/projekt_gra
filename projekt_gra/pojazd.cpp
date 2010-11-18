@@ -50,7 +50,7 @@ void Pojazd::ruchSwobodny(){
     int znak = 1; //+ lub - okreslaja ruch pojazdu w przod, tyl
     if ( predkosc < 0 ) znak = -1;
     predkosc = fabs(predkosc);
-    predkosc -= PRZYSPIESZENIE*0.7;
+    predkosc -= PRZYSPIESZENIE;
 
     predkosc *= znak;
     dy += predkosc;
@@ -72,8 +72,8 @@ void Pojazd::przeliczObszarKolizji()
             zmianaKata -= 3;
         else if( predkosc < -0.1 )
             zmianaKata += 3;
-    }else{                     //wspomaganie kierownicy
-        if (zmianaKata > 0)
+    }else if( fabs(predkosc ) > 0.1 ){                     //wspomaganie kierownicy
+        if ( zmianaKata > 0)
             zmianaKata -= 6;
         else if(zmianaKata < 0)
             zmianaKata += 6;
@@ -83,20 +83,20 @@ void Pojazd::przeliczObszarKolizji()
         int znak = 1;
         if ( predkosc < 0 ) znak = -1;
         predkosc = fabs(predkosc);
-        predkosc -= PRZYSPIESZENIE*15;
+        predkosc -= PRZYSPIESZENIE*30;
 
         predkosc *= znak;
         dy += predkosc;
     }else if( wPrzod ){
         if( predkosc <0 )
-            predkosc += PRZYSPIESZENIE;
+            predkosc += PRZYSPIESZENIE*5;
         predkosc += PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy >= MAX_PREDKOSC )
             dy = MAX_PREDKOSC;
     }else if( wTyl ){
         if( predkosc >0 )
-            predkosc -= PRZYSPIESZENIE;
+            predkosc -= PRZYSPIESZENIE*5;
         predkosc -= PRZYSPIESZENIE*10;
         dy += predkosc;
         if ( dy <= -MAX_PREDKOSC/5 )
