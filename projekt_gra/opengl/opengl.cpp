@@ -80,6 +80,9 @@ void GLWrapper::init(int /*argc*/, char */*argv*/[])
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
 
+//    glEnable( GL_LIGHTING );
+//    glEnable( GL_LIGHT0 );
+
 //    mProjectionMatrix = glm::perspective( 60.0, 1.0, 0.1, 10000.0 );
 
 //    mModelViewMatrix = glm::translate( mModelViewMatrix, glm::vec3( 7.f, 5.f, -20.f ) );

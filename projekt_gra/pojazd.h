@@ -24,6 +24,7 @@ public:
     void przeliczObszarKolizji();
     glm::mat4 polozenie;
     void rysuj();
+    boost::geometry::point_2d polozenieXY() const;
 
     float kat;
     double mTimeDelta;

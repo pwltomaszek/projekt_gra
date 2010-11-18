@@ -72,6 +72,7 @@ HEADERS += mainwindow.h \
     droga.h \
     chodnik.h \
     budynek.h \
+    obiektnamapie.h \
     zadaniaKontrolne/punktkontrolny.h \
     zadaniaKontrolne/zadaniekontrolne.h \
     zadaniaKontrolne/powiazaniezadan.h \

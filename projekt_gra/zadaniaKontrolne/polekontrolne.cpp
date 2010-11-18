@@ -1,3 +1,4 @@
+#include "pojazd.h"
 #include "polekontrolne.h"
 #include <QDebug>
 
@@ -5,16 +6,20 @@ PoleKontrolne::PoleKontrolne()
 {
 }
 
-PoleKontrolne::PoleKontrolne(krawedz krWe, krawedz krWy, uint szer, uint dl, float dx, float dy)
+PoleKontrolne::PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy,
+                             uint szer, uint dl, float dx, float dy)
     : Przeszkoda( szer, dl, 0, dx, dy )
 {
     wjechanoOk = wyjechanoOk = false;
+    pierwszeWjechanie = true;
     this->krWe = krWe;
     this->krWy = krWy;
     sprawdzajKolizje = true;
 }
 
-void PoleKontrolne::dzialanie(const Pojazd *pojazd){
+void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
+    std::map< Krawedz, Krawedz > krawedzie = kolidujaceKrawedzie(pojazd);
+
     //cialo bedzie wygladalo mniej-wiecej tak:
 //    if( wjechanoOk ){
 //        qDebug() << "wjechano w PoleK";

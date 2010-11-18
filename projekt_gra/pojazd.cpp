@@ -22,6 +22,7 @@ Pojazd::Pojazd()
 
 void Pojazd::rysuj()
 {
+//    qDebug() << kat;
     rysujObszarKolizji();
 
     GLWrapper &gl = GLWrapper::instance();
@@ -154,4 +155,10 @@ void Pojazd::cofnijPoKolizji( glm::mat4 polozenie ){
     stop();
     this->polozenie = polozenie;
     kat -= zmianaKata * mTimeDelta;
+}
+
+boost::geometry::point_2d Pojazd::polozenieXY() const
+{
+    return boost::geometry::point_2d( polozenie[ 3 ][ 0 ],
+                                      polozenie[ 3 ][ 1 ] );
 }

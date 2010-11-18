@@ -2,7 +2,7 @@
 #define PUNKTKONTROLNY_H
 
 #include "przeszkoda.h"
-#include "powiazanieZadan.h"
+#include "powiazaniezadan.h"
 #include "zadaniekontrolne.h"
 
 

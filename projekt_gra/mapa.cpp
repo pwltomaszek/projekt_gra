@@ -5,7 +5,7 @@
 #include "droga.h"
 #include "mapa.h"
 #include "zadaniaKontrolne/punktkontrolny.h"
-#include "zadaniaKontrolne/powiazanieZadan.h"
+#include "zadaniaKontrolne/powiazaniezadan.h"
 #include "zadaniaKontrolne/polekontrolne.h"
 
 
