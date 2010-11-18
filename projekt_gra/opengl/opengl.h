@@ -39,6 +39,7 @@ public:
     void assignShader(GLuint programId, ShaderType shaderType, const std::string &fileName);
     void clear( float r = 1.f, float g = 1.f, float b = 1.f );
     void createShader(GLuint program, GLenum type, ShaderType shaderType, const std::string &fileName);
+    void deleteBuffers( Mesh *mesh );
     void draw( Mesh *mesh );
     void flush();
     void generateTexture( Texture *texture );

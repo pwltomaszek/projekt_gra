@@ -31,7 +31,7 @@ void main(void) {
                               modelViewMatrix[ 2 ][ 0 ], modelViewMatrix[ 2 ][ 1 ], modelViewMatrix[ 2 ][ 2 ] );
     normalMatrix = transpose( inverse( normalMatrix ) );
 
-    vec3 lightDirection = normalize( vec3( light.position.xyz ) - vec4( modelViewMatrix * position ).xyz );
+    vec3 lightDirection = normalize( light.position.xyz - in_Position );
     vec3 normal = normalize( normalMatrix * in_Normal );
     float diffuseIntensity = max( dot( normal, lightDirection ), 0.0 );
 

@@ -20,6 +20,8 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
     mGra->rysuj();
+    glColor3f( 0, 0, 0);
+    renderText( 10, 10, "test" );
 }
 
 void GLWidget::resizeGL(int w, int h)

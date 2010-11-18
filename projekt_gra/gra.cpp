@@ -123,7 +123,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -50.f ) );
+                                     -10.f ) );
             break;
         }
         case FPP:{

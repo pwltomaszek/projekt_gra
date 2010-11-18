@@ -339,8 +339,8 @@ void GLWrapper::draw(Mesh *mesh)
 
     static LightSource *light = 0;
     delete light;
-    light = new LightSource( 0, 0, -50,
-                             0.5, 0.5, 0.5,
+    light = new LightSource( 0, -100, -20,
+                             1.f, 1.f, 1.f,
                              0.5, 0.5, 0.5 );
 
     GLuint lightUniformBufferId = 0;
@@ -505,4 +505,9 @@ void GLWrapper::scale(const float &ratio)
 void GLWrapper::scale( const float &x, const float &y, const float &z )
 {
     mModelViewMatrix = glm::scale( mModelViewMatrix, glm::vec3( x, y, z ) );
+}
+
+void GLWrapper::deleteBuffers(Mesh *mesh)
+{
+
 }
