@@ -38,7 +38,7 @@ Mapa::Mapa()
     //zadania kontrolne - pola
     zadaniaNaMapie.clear();
     zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
-                                                           40, 100, 30, 6), 70, 30 ) );
+                                                           10, 50, 30, 6), 70, 30 ) );
     zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
                                                            40, 100, 30, 6), 70, 6 ) );
     dodajIPowiazZadania( zadaniaNaMapie );

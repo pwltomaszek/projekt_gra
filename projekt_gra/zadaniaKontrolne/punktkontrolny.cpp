@@ -19,9 +19,8 @@ void PunktKontrolny::dzialanie(const Pojazd *pojazd){
             zadanieZaliczonePoprawnie = true;
         else zadanieZaliczonePoprawnie = false;
 
-        //TU ustawiac punkty karmy
-        qDebug() << "\nwjechano w " << zadanieZaliczonePoprawnie
-                 << "PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+        qDebug() << "\n### wjechano w PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+        qDebug() << "dobrze wybrana trasa: " << zadanieZaliczonePoprawnie;
 
         foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane)
             el->sprawdzajKolizje = false;

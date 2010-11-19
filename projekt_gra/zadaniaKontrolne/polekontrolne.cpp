@@ -28,8 +28,11 @@ void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
 
     //jesli gracz wiechal ze zlej strony, to zadanie zostanie zaliczone negayuwnie
     if( sprawdzajKolizje &&  zadanieAktywowane && !koliduje ){
+        zadanieAktywowane = true;
         zadanieZaliczonePoprawnie = false;
-        qDebug() << "\nwyjechano z trasy. zadanie zaliczone negatywnie. powiazane nie beda sprawdzane ";
+        qDebug() << "wyjechano z trasy przed koncem testu.";
+        qDebug() << "zaliczono poprawnie: " << zadanieZaliczonePoprawnie;
+
         foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane){
                 el->sprawdzajKolizje = false;
         }
@@ -38,6 +41,7 @@ void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
         if( !wjechanoOk && porownajKrawedzie( pojazd, krWe ) ){     //badanie poprawnego wjazdu            
             wjechanoOk = true;
             zadanieAktywowane = true;
+            qDebug() << "\n### wjechano w PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
 
             foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane){
                 if (el != this)
@@ -46,8 +50,8 @@ void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
         }else if( wjechanoOk && !wyjechanoOk && porownajKrawedzie( pojazd, krWy ) ){ //badanie poprawnego wyjazdu
             float sredniaPredkosc = sumaPredkosci/liczbaProbek;
             float procentPoprawnosc = static_cast<float>(liczbaProbekPoprawnych)/static_cast<float>(liczbaProbek)*100;
-
-            qDebug() << "\npredkosc srednia pokonania odcinka: " << sredniaPredkosc;
+            qDebug() << "predkosc srednia pokonania odcinka: " << sredniaPredkosc
+                        << "km/h (wymagany zakres: " << ograniczenieMin << "-" << ograniczenieMax <<")";
             qDebug() << "probek poprawnych/wszystkich: " << liczbaProbekPoprawnych << "/" << liczbaProbek
                      << " -> procent poprawnosc: " << procentPoprawnosc
                      << "% (wymagane minimum: " << PROCENT_POPRAWNOSCI << "%)";
