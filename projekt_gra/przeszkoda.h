@@ -9,6 +9,7 @@
 #include "opengl/opengl.h"
 
 typedef unsigned int uint;
+typedef unsigned long int ulint;
 
 class Node;
 class Pojazd;

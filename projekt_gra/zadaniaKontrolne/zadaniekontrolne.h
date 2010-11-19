@@ -11,7 +11,9 @@ class ZadanieKontrolne : public virtual Przeszkoda
 public:
     ZadanieKontrolne();
 
-//protected:
+    bool zadanieAktywowane;
+    bool zadanieZaliczonePoprawnie;
+
     PowiazanieZadan *kontenerPowiazania;
     bool sprawdzajKolizje;
 };

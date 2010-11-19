@@ -2,4 +2,5 @@
 
 ZadanieKontrolne::ZadanieKontrolne()
 {
+    zadanieAktywowane = false;
 }

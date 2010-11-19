@@ -27,29 +27,28 @@ Mapa::Mapa()
     dodajPrzeszkode( new Droga( Droga::WschodZachod, 70, 6 ), 50, 30 );
 
 
-    //zadania kontrolne - punkty
-    obiekty.push_back( new ObiektNaMapie(new PunktKontrolny(1, 6), 59, 6 ) );
-    obiekty.push_back( new ObiektNaMapie(new PunktKontrolny(6, 1), 50, 15 ) );
-    dodajIPowiazZadania( obiekty );
+    //ZADANIA KONTROLNE
+    std::vector<ZadanieNaMapie *> zadaniaNaMapie;
 
-    obiekty.clear();
-    obiekty.push_back( new ObiektNaMapie(new PunktKontrolny(1, 6), 10, 6 ) );
-    obiekty.push_back( new ObiektNaMapie(new PunktKontrolny(1, 6), 20, 6 ) );
-    obiekty.push_back( new ObiektNaMapie(new PunktKontrolny(1, 6), 30, 6 ) );
-    dodajIPowiazZadania( obiekty );
+    //zadania kontrolne - punkty
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PunktKontrolny(true, 1, 6), 59, 6 ) );
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PunktKontrolny(false, 6, 1), 50, 15 ) );
+    dodajIPowiazZadania( zadaniaNaMapie );
 
     //zadania kontrolne - pola
-    obiekty.clear();
-    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD, 30, 6), 70, 30 ) );
-    obiekty.push_back( new ObiektNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD, 30, 6), 70, 6 ) );
-    dodajIPowiazZadania( obiekty );
+    zadaniaNaMapie.clear();
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
+                                                           40, 100, 30, 6), 70, 30 ) );
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
+                                                           40, 100, 30, 6), 70, 6 ) );
+    dodajIPowiazZadania( zadaniaNaMapie );
 }
 
-void Mapa::dodajIPowiazZadania(std::vector<ObiektNaMapie *> obiekty) {
+void Mapa::dodajIPowiazZadania(std::vector<ZadanieNaMapie *> zadaniaNaMapie) {
     ZadanieKontrolne *zk;
     PowiazanieZadan *pZ = new PowiazanieZadan;
-    foreach(ObiektNaMapie *el, obiekty){
-        zk = dynamic_cast<ZadanieKontrolne*>(el->przeszkoda);
+    foreach(ZadanieNaMapie *el, zadaniaNaMapie){
+        zk = dynamic_cast<ZadanieKontrolne*>(el->zadanie);
         pZ->zadaniaPowiazane.push_back(zk);
         dodajZadanie( zk, el->x, el->y );
     }

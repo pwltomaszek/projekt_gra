@@ -43,8 +43,8 @@ SOURCES += main.cpp \
     zadaniaKontrolne/punktkontrolny.cpp \
     zadaniaKontrolne/zadaniekontrolne.cpp \
     zadaniaKontrolne/powiazaniezadan.cpp \
-    obiektnamapie.cpp \
-    zadaniaKontrolne/polekontrolne.cpp
+    zadaniaKontrolne/polekontrolne.cpp \
+    zadanienamapie.cpp
 HEADERS += mainwindow.h \
     glwidget.h \
     gra.h \
@@ -72,12 +72,11 @@ HEADERS += mainwindow.h \
     droga.h \
     chodnik.h \
     budynek.h \
-    obiektnamapie.h \
     zadaniaKontrolne/punktkontrolny.h \
     zadaniaKontrolne/zadaniekontrolne.h \
     zadaniaKontrolne/powiazaniezadan.h \
-    obiektnamapie.h \
-    zadaniaKontrolne/polekontrolne.h
+    zadaniaKontrolne/polekontrolne.h \
+    zadanienamapie.h
 FORMS += mainwindow.ui
 OTHER_FILES += texture.vert \
     texture.frag \

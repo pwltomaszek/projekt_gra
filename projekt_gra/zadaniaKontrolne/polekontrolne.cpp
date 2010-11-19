@@ -2,42 +2,85 @@
 #include "polekontrolne.h"
 #include <QDebug>
 
+#define PROCENT_POPRAWNOSCI     80.0
+
 PoleKontrolne::PoleKontrolne()
 {
 }
 
-PoleKontrolne::PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy,
+PoleKontrolne::PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy, float ogrMin, float ogrMax,
                              uint szer, uint dl, float dx, float dy)
-    : Przeszkoda( szer, dl, 0, dx, dy )
+    : Przeszkoda( szer, dl, 0, dx, dy ), ZadanieKontrolne()
 {
     wjechanoOk = wyjechanoOk = false;
     pierwszeWjechanie = true;
     this->krWe = krWe;
     this->krWy = krWy;
+    this->ograniczenieMax = ogrMax;
+    this->ograniczenieMin = ogrMin;
     sprawdzajKolizje = true;
+    liczbaProbek = liczbaProbekPoprawnych = 0;
+    sumaPredkosci = 0;
+
 }
 
 void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
-    std::map< Krawedz, Krawedz > krawedzie = kolidujaceKrawedzie(pojazd);
 
-    //cialo bedzie wygladalo mniej-wiecej tak:
-//    if( wjechanoOk ){
-//        qDebug() << "wjechano w PoleK";
-//        zliczanie predkosci, zabawy z timerem. co tam bedzie potrzeba
-//    }
-//    if( wjechanoOk && wyjechanoOk ){
-//        qDebug() << "wyjechano w PoleK po uprzednio dobrym wjechaniu ";
-//    }
+    //jesli gracz wiechal ze zlej strony, to zadanie zostanie zaliczone negayuwnie
+    if( sprawdzajKolizje &&  zadanieAktywowane && !koliduje ){
+        zadanieZaliczonePoprawnie = false;
+        qDebug() << "\nwyjechano z trasy. zadanie zaliczone negatywnie. powiazane nie beda sprawdzane ";
+        foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane){
+                el->sprawdzajKolizje = false;
+        }
+    }else if( sprawdzajKolizje && koliduje ){
 
-    //jak juz wjechano i wyjechano w porzadku, nastapi deazyktywacja tego zadania i z nim powiazanych.
-    //ewentualnie w poprzednim warunku. zrobie jak trzeba, gdy bede mial mozliwosc sprawdzania kolizji z krawedziami
-    if( sprawdzajKolizje == true && koliduje == true ){
-        sprawdzajKolizje = false;
+        if( !wjechanoOk && porownajKrawedzie( pojazd, krWe ) ){     //badanie poprawnego wjazdu            
+            wjechanoOk = true;
+            zadanieAktywowane = true;
 
-        //qDebug() << "zaliczono PoleK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
-        foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane)
-            el->sprawdzajKolizje = false;
+            foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane){
+                if (el != this)
+                    el->sprawdzajKolizje = false;
+            }
+        }else if( wjechanoOk && !wyjechanoOk && porownajKrawedzie( pojazd, krWy ) ){ //badanie poprawnego wyjazdu
+            float sredniaPredkosc = sumaPredkosci/liczbaProbek;
+            float procentPoprawnosc = static_cast<float>(liczbaProbekPoprawnych)/static_cast<float>(liczbaProbek)*100;
+
+            qDebug() << "\npredkosc srednia pokonania odcinka: " << sredniaPredkosc;
+            qDebug() << "probek poprawnych/wszystkich: " << liczbaProbekPoprawnych << "/" << liczbaProbek
+                     << " -> procent poprawnosc: " << procentPoprawnosc
+                     << "% (wymagane minimum: " << PROCENT_POPRAWNOSCI << "%)";
+
+            if( procentPoprawnosc > PROCENT_POPRAWNOSCI
+                    && sredniaPredkosc < ograniczenieMax && sredniaPredkosc > ograniczenieMin ){
+                zadanieZaliczonePoprawnie = true;
+            }else zadanieZaliczonePoprawnie = false;
+
+            qDebug() << "zaliczono poprawnie: " << zadanieZaliczonePoprawnie;
+
+            wyjechanoOk = true;
+            sprawdzajKolizje = false;
+        }else{                          //kiedy pojazd jest w srodku zadania...
+            liczbaProbek++;
+            sumaPredkosci += pojazd->predkoscView;
+            if( pojazd->predkoscView < ograniczenieMax && pojazd->predkoscView > ograniczenieMin )
+                liczbaProbekPoprawnych++;
+        }
     }
+
+}
+
+//porownuje dana krawedz z krawedziemi z ktorymi aktualnie koliduje pojazd
+//TODO: sprawic by nie rozpoczeto zliczania po wjezdzie 'od srodka'. sprawdzic warunek
+//i dezaktywawac 'sprawdzajKolizje' lub zrobic niezalezna zmienna dla tej akcji
+bool PoleKontrolne::porownajKrawedzie( const Pojazd *pojazd, const Krawedz kr ){
+    std::map< Krawedz, Krawedz > krawedzie = kolidujaceKrawedzie(pojazd);
+    for (std::map< Krawedz, Krawedz >::iterator kIt = krawedzie.begin(); kIt != krawedzie.end(); ++kIt) {
+        if( kr == kIt->first )
+            return true;
+    }
+    return false;
 }
 
 void PoleKontrolne::przeliczObszarKolizji(uint x, uint y)

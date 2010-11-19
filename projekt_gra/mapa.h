@@ -2,7 +2,7 @@
 #define MAPA_H
 
 #include <vector>
-#include "obiektnamapie.h"
+#include "zadanienamapie.h"
 
 
 typedef unsigned int uint;
@@ -10,7 +10,7 @@ typedef unsigned int uint;
 class Pojazd;
 class Przeszkoda;
 class ZadanieKontrolne;
-class ObiektNaMapie;
+class ZadanieNaMapie;
 
 class Mapa
 {
@@ -19,7 +19,7 @@ public:
 
     void dodajPrzeszkode( Przeszkoda *przeszkoda, uint x, uint y );
     void dodajZadanie( ZadanieKontrolne *przeszkoda, uint x = 0, uint y = 0 );
-    void dodajIPowiazZadania( std::vector< ObiektNaMapie* > obiekty );
+    void dodajIPowiazZadania( std::vector< ZadanieNaMapie* > obiekty );
 
     bool zachodziKolizjaFizyczna( const Pojazd *pojazd );
     bool zachodziKolizjaZZadaniem( const Pojazd *pojazd );
@@ -27,8 +27,7 @@ public:
 
 private:
     std::vector< Przeszkoda* > mapa[ 100 ][ 100 ];
-    std::vector< Przeszkoda* > przeszkody, zadania;
-    std::vector<ObiektNaMapie *> obiekty;
+    std::vector< Przeszkoda* > przeszkody, zadania;    
 };
 
 #endif // MAPA_H

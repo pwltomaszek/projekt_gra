@@ -10,10 +10,12 @@ class PunktKontrolny : public ZadanieKontrolne
 {
 public:
     PunktKontrolny();
-    PunktKontrolny(uint szer, uint dl, float dx = 0, float dy = 0);
+    PunktKontrolny(bool dobryPunkt, uint szer, uint dl, float dx = 0, float dy = 0);
 
     void przeliczObszarKolizji(uint x, uint y);
     void dzialanie( const Pojazd *pojazd );
+
+    bool dobryPunkt; // okresla czy gracz powinien natrafic na ten punkt
 };
 
 

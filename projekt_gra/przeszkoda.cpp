@@ -36,6 +36,8 @@ bool Przeszkoda::czyKolidujeZPojazdem(const Pojazd *pojazd)
     return tmp;
 }
 
+//first - krawedz z ktora pojazd koliduje; second - strona, po ktorej sie znajduje wzgledem first
+//                                          (badane na podstawie centralnego punktu pojazdu)
 std::map< Przeszkoda::Krawedz, Przeszkoda::Krawedz > Przeszkoda::kolidujaceKrawedzie(const Pojazd *pojazd)
 {
     /*

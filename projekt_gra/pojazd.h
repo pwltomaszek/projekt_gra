@@ -31,6 +31,8 @@ public:
 
     Node *mMesh;
 
+    double predkoscView;  // tej predkosci uzywac do wyswietlania
+
 private:
     float dy, dx, dz;
     float zmianaKata;

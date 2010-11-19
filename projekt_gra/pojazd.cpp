@@ -22,7 +22,6 @@ Pojazd::Pojazd()
 
 void Pojazd::rysuj()
 {
-//    qDebug() << kat;
     rysujObszarKolizji();
 
     GLWrapper &gl = GLWrapper::instance();
@@ -59,7 +58,8 @@ void Pojazd::ruchSwobodny(){
 
 void Pojazd::przeliczObszarKolizji()
 {    
-    //qDebug()<<"predkosc km/h: " << predkosc*3;
+    predkoscView = predkosc*4;
+    //qDebug()<<"predkosc km/h: " << predkoscView;
 
     dx = dy = dz = 0;
 

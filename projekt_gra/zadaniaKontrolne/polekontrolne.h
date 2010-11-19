@@ -9,7 +9,7 @@ class PoleKontrolne : public ZadanieKontrolne
 {
 public:    
     PoleKontrolne();
-    PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy,
+    PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy, float ogrMin, float ogrMax,
                   uint szer, uint dl, float dx = 0, float dy = 0);
 
     void przeliczObszarKolizji(uint x, uint y);
@@ -18,6 +18,14 @@ public:
 
     bool wjechanoOk, wyjechanoOk, pierwszeWjechanie;
     Przeszkoda::Krawedz krWe, krWy;
+
+    bool porownajKrawedzie( const Pojazd *pojazd, const Krawedz kr );
+
+
+
+    float ograniczenieMax, ograniczenieMin;
+    ulint liczbaProbek, liczbaProbekPoprawnych;
+    float sumaPredkosci;
 };
 
 #endif // POLEKONTROLNE_H
