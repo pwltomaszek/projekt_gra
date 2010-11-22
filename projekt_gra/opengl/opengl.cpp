@@ -18,30 +18,6 @@ GLWrapper GLWrapper::mGLWrapper;
 
 using namespace std;
 
-struct LightSource {
-    GLfloat position[ 4 ], ambient[ 4 ], diffuse[ 4 ];
-
-    LightSource( float posX, float posY, float posZ,
-                 float ambientR = 1.f, float ambientG = 1.f, float ambientB = 1.f,
-                 float diffuseR = 1.f, float diffuseG = 1.f, float diffuseB = 1.f,
-                 float ambientA = 1.f, float diffuseA = 1.f ) {
-        position[ 0 ] = posX;
-        position[ 1 ] = posY;
-        position[ 2 ] = posZ;
-        position[ 3 ] = 1.f;
-
-        ambient[ 0 ] = ambientR;
-        ambient[ 1 ] = ambientG;
-        ambient[ 2 ] = ambientB;
-        ambient[ 3 ] = ambientA;
-
-        diffuse[ 0 ] = diffuseR;
-        diffuse[ 1 ] = diffuseG;
-        diffuse[ 2 ] = diffuseB;
-        diffuse[ 3 ] = diffuseA;
-    }
-};
-
 GLWrapper::GLWrapper()
 {
 
@@ -101,6 +77,8 @@ void GLWrapper::init(int /*argc*/, char */*argv*/[])
     initShaderPrograms();
 
     ilInit();
+
+    light = 0;
 
     checkGLError( "init()" );
 }
@@ -340,12 +318,6 @@ void GLWrapper::draw(Mesh *mesh)
 
     // load light information into uniform buffer
 
-    static LightSource *light = 0;
-    delete light;
-    light = new LightSource( 0, -100, -20,
-                             1.f, 1.f, 1.f,
-                             0.5, 0.5, 0.5 );
-
     GLuint lightUniformBufferId = 0;
     glGenBuffers( 1, &lightUniformBufferId );
 
@@ -363,6 +335,8 @@ void GLWrapper::draw(Mesh *mesh)
                      4 * sizeof( GLfloat ), light->ambient );
     glBufferSubData( GL_UNIFORM_BUFFER, 8 * sizeof( GLfloat ),
                      4 * sizeof( GLfloat ), light->diffuse );
+    glBufferSubData( GL_UNIFORM_BUFFER, 12 * sizeof( GLfloat ),
+                     4 * sizeof( GLfloat ), light->specular );
     glBindBuffer( GL_UNIFORM_BUFFER, 0 );
 
     glUniformBlockBinding( programId, lightUniformBlockIndex, 1 );
@@ -423,6 +397,8 @@ void GLWrapper::draw(Mesh *mesh)
                          4 * sizeof( GLfloat ), material->diffuse );
         glBufferSubData( GL_UNIFORM_BUFFER, 8 * sizeof( GLfloat ),
                          4 * sizeof( GLfloat ), material->specular );
+        glBufferSubData( GL_UNIFORM_BUFFER, 12 * sizeof( GLfloat ),
+                         1 * sizeof( GLfloat ), &material->shininess );
         glBindBuffer( GL_UNIFORM_BUFFER, 0 );
 
         glUniformBlockBinding( programId, materialUniformBlockIndex, 0 );

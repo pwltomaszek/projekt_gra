@@ -7,12 +7,14 @@ uniform Light {
     vec4 position;
     vec4 ambient;
     vec4 diffuse;
+	vec4 specular;
 } light;
 
 uniform Material {
     vec4 ambient;
     vec4 diffuse;
     vec4 specular;
+	float shininess;
 } material;
 
 in vec3 in_Position;
@@ -22,28 +24,27 @@ in vec2 in_TexCoord;
 out vec2 texCoord;
 out vec4 ambientColor;
 out vec4 diffuseColor;
+out vec4 specularColor;
+out vec3 normal;
+out vec3 lightDirection;
+out vec3 halfVector;
+out float shininess;
 
 void main(void) {
     vec4 position = modelViewMatrix * vec4( in_Position, 1.0 );
+	gl_Position =  projectionMatrix * position;
 
-    mat3 normalMatrix = mat3( modelViewMatrix[ 0 ][ 0 ], modelViewMatrix[ 0 ][ 1 ], modelViewMatrix[ 0 ][ 2 ],
-                              modelViewMatrix[ 1 ][ 0 ], modelViewMatrix[ 1 ][ 1 ], modelViewMatrix[ 1 ][ 2 ],
-                              modelViewMatrix[ 2 ][ 0 ], modelViewMatrix[ 2 ][ 1 ], modelViewMatrix[ 2 ][ 2 ] );
-    normalMatrix = transpose( inverse( normalMatrix ) );
+    mat3 normalMatrix = transpose( inverse( mat3( modelViewMatrix ) ) );
 
-    vec3 lightDirection = normalize( light.position.xyz - in_Position );
-    vec3 normal = normalize( normalMatrix * in_Normal );
-    float diffuseIntensity = max( dot( normal, lightDirection ), 0.0 );
+	normal = normalize( normalMatrix * in_Normal );
+    lightDirection = normalize( light.position.xyz );
 
-    vec4 diffuse = light.diffuse * material.diffuse * diffuseIntensity;
-    vec4 ambient = light.ambient * material.ambient;
+	halfVector = normalize( lightDirection - position.xyz );
 
-    gl_Position =  projectionMatrix * position;
+    diffuseColor = light.diffuse * material.diffuse;
+    ambientColor = light.ambient * material.ambient;
+	specularColor = light.specular * material.specular;
+	shininess = material.shininess;
+
     texCoord = in_TexCoord;
-
-    ambientColor = ambient;
-    diffuseColor = diffuse;
-
-    //ambientColor = material.ambient;
-    //diffuseColor = material.diffuse;
 }

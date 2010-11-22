@@ -18,6 +18,36 @@
 class Mesh;
 class Texture;
 
+struct LightSource {
+    GLfloat position[ 4 ], ambient[ 4 ], diffuse[ 4 ], specular[ 4 ];
+
+    LightSource( float posX, float posY, float posZ,
+                 float ambientR = 1.f, float ambientG = 1.f, float ambientB = 1.f,
+                 float diffuseR = 1.f, float diffuseG = 1.f, float diffuseB = 1.f,
+                 float specularR = 1.f, float specularG = 1.f, float specularB = 1.f,
+                 float ambientA = 1.f, float diffuseA = 1.f, float specularA = 1.f ) {
+        position[ 0 ] = posX;
+        position[ 1 ] = posY;
+        position[ 2 ] = posZ;
+        position[ 3 ] = 1.f;
+
+        ambient[ 0 ] = ambientR;
+        ambient[ 1 ] = ambientG;
+        ambient[ 2 ] = ambientB;
+        ambient[ 3 ] = ambientA;
+
+        diffuse[ 0 ] = diffuseR;
+        diffuse[ 1 ] = diffuseG;
+        diffuse[ 2 ] = diffuseB;
+        diffuse[ 3 ] = diffuseA;
+
+        specular[ 0 ] = specularR;
+        specular[ 1 ] = specularG;
+        specular[ 2 ] = specularB;
+        specular[ 3 ] = specularA;
+    }
+};
+
 class GLWrapper
 {
 public:
@@ -60,6 +90,9 @@ public:
     void updateBuffer( const int &dataPosition, Mesh *mesh,
                               bool createBuffer = false );
 
+    LightSource *light;
+    glm::mat4 mModelViewMatrix;
+
 private:
     GLWrapper();
     GLWrapper(const GLWrapper&);
@@ -72,7 +105,6 @@ private:
     GLuint mShaderProgramIds[ ShaderProgramsCount ];
     GLuint mShaderIds[ ShaderProgramsCount * ShaderTypeCount ];
 
-    glm::mat4 mModelViewMatrix;
     glm::mat4 mProjectionMatrix;
     
     std::stack< glm::mat4 > mModelViewMatrixStack;

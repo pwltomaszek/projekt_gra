@@ -31,7 +31,6 @@ void Pojazd::rysuj()
     glCullFace( GL_FRONT );
 
     mMesh->draw();
-
     glCullFace( GL_BACK );
 
     gl.popMatrix();

@@ -12,7 +12,7 @@
 Mapa::Mapa()
 {
     //budynki
-    dodajPrzeszkode( new Budynek( 100, 4, 1 ), 0, 0 );
+    dodajPrzeszkode( new Budynek( 100, 4, 10 ), 0, 0 );
 
     //chodniki - najlepiej by caly obszar byl chodnikiem, a reszta obiektow go nadrysowala
     dodajPrzeszkode( new Chodnik( 50, 1 ), 0, 12 );

@@ -99,7 +99,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -40.f ) );
+                                     -20.f ) );
             break;
         }
         case FPP:{
@@ -107,10 +107,18 @@ void Gra::rysuj()
             gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
             gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
-                                                 -mPojazd.polozenie[ 3 ][ 1 ],
-                                                 -1.f ) );
-        }
+                                     -mPojazd.polozenie[ 3 ][ 1 ],
+                                     -1.f ) );
     }
+    }
+
+    glm::vec4 lightPos( 0, 1000, 1000, 1 );
+    lightPos = gl.mModelViewMatrix * lightPos;
+
+    delete gl.light;
+    gl.light = new LightSource( lightPos.x, lightPos.y, lightPos.z,
+                             0.9, 0.9, 0.9,
+                             0.8, 0.8, 0.8 );
 
     mMapa->rysuj();
     mPojazd.rysuj();
