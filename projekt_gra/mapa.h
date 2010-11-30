@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "zadanienamapie.h"
-
+#include "zadaniaKontrolne/podsumowaniezadan.h"
 
 typedef unsigned int uint;
 
@@ -27,7 +27,8 @@ public:
 
 private:
     std::vector< Przeszkoda* > mapa[ 100 ][ 100 ];
-    std::vector< Przeszkoda* > przeszkody, zadania;    
+    std::vector< Przeszkoda* > przeszkody;
+    std::vector< ZadanieKontrolne* > zadania;
 };
 
 #endif // MAPA_H

@@ -7,10 +7,12 @@
 #include "zadaniaKontrolne/punktkontrolny.h"
 #include "zadaniaKontrolne/powiazaniezadan.h"
 #include "zadaniaKontrolne/polekontrolne.h"
-
+#include "zadaniaKontrolne/podsumowaniezadan.h"
 
 Mapa::Mapa()
 {
+    /*
+    ** ZABUDOWANIA */
     //budynki
     dodajPrzeszkode( new Budynek( 100, 4, 1 ), 0, 0 );
 
@@ -27,21 +29,31 @@ Mapa::Mapa()
     dodajPrzeszkode( new Droga( Droga::WschodZachod, 70, 6 ), 50, 30 );
 
 
-    //ZADANIA KONTROLNE
+    /*
+    ** ZADANIA KONTROLNE */
     std::vector<ZadanieNaMapie *> zadaniaNaMapie;
 
-    //zadania kontrolne - punkty
-    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PunktKontrolny(true, 1, 6), 59, 6 ) );
-    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PunktKontrolny(false, 6, 1), 50, 15 ) );
+    //punkty (np. odnogi skrzyzowan)
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(
+                                 new PunktKontrolny(true, ZadanieKontrolne::TRITANOPIA, 0, 1, 6), 59, 6 ) );
+    zadaniaNaMapie.push_back( new ZadanieNaMapie(
+                                 new PunktKontrolny(false, ZadanieKontrolne::TRITANOPIA, 1, 6, 1), 50, 15 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
 
-    //zadania kontrolne - pola
+    //pola (np. ograniczniki predkosci)
     zadaniaNaMapie.clear();
-    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
-                                                           10, 50, 30, 6), 70, 30 ) );
-    zadaniaNaMapie.push_back( new ZadanieNaMapie(new PoleKontrolne(PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
-                                                           40, 100, 30, 6), 70, 6 ) );
+    zadaniaNaMapie.push_back( new ZadanieNaMapie( new PoleKontrolne( ZadanieKontrolne::DEUTERANOPIA, 2,
+                                                                    PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
+                                                                    10, 50, 30, 6), 70, 30 ) );
+    zadaniaNaMapie.push_back( new ZadanieNaMapie (new PoleKontrolne( ZadanieKontrolne::DEUTERANOPIA, 2,
+                                                                    PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
+                                                                    40, 100, 30, 6), 70, 6 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+
+
+    /*
+    ** META */
+    dodajPrzeszkode(new PodsumowanieZadan( zadania, 5, 5), 90, 90 );
 }
 
 void Mapa::dodajIPowiazZadania(std::vector<ZadanieNaMapie *> zadaniaNaMapie) {
