@@ -26,7 +26,7 @@ public:
     void rysuj();
 
 private:
-    std::vector< Przeszkoda* > mapa[ 100 ][ 100 ];
+    std::vector< Przeszkoda* > mapa[ 600 ][ 400 ];
     std::vector< Przeszkoda* > przeszkody;
     std::vector< ZadanieKontrolne* > zadania;
 };
