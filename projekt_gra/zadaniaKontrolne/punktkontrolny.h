@@ -5,12 +5,14 @@
 #include "powiazaniezadan.h"
 #include "zadaniekontrolne.h"
 
+class ZadanieKontrolne;
 
 class PunktKontrolny : public ZadanieKontrolne
 {
 public:
     PunktKontrolny();
-    PunktKontrolny(bool dobryPunkt, uint szer, uint dl, float dx = 0, float dy = 0);
+    PunktKontrolny(bool dobryPunkt, RodzajDichromatyzmu rd, int wartoscDichromatyzmu,
+                   uint szer, uint dl, float dx = 0, float dy = 0);
 
     void przeliczObszarKolizji(uint x, uint y);
     void dzialanie( const Pojazd *pojazd );

@@ -2,8 +2,9 @@
 
 #include "punktkontrolny.h"
 
-PunktKontrolny::PunktKontrolny(bool dobryPunkt, uint szer, uint dl, float dx, float dy)
-    : Przeszkoda( szer, dl, 0, dx, dy ), ZadanieKontrolne()
+PunktKontrolny::PunktKontrolny(bool dobryPunkt, RodzajDichromatyzmu rd, int wartoscDichromatyzmu,
+                               uint szer, uint dl, float dx, float dy)
+    : Przeszkoda( szer, dl, 0, dx, dy ), ZadanieKontrolne( rd, wartoscDichromatyzmu )
 {
     sprawdzajKolizje = true;
     this->dobryPunkt = dobryPunkt;

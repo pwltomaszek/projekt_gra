@@ -9,8 +9,9 @@ class PoleKontrolne : public ZadanieKontrolne
 {
 public:    
     PoleKontrolne();
-    PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy, float ogrMin, float ogrMax,
-                  uint szer, uint dl, float dx = 0, float dy = 0);
+    PoleKontrolne( RodzajDichromatyzmu rd, int wartoscDichromatyzmu,
+                  Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy,
+                  float ogrMin, float ogrMax, uint szer, uint dl, float dx = 0, float dy = 0);
 
     void przeliczObszarKolizji(uint x, uint y);
     void dzialanie( const Pojazd *pojazd );

@@ -8,9 +8,10 @@ PoleKontrolne::PoleKontrolne()
 {
 }
 
-PoleKontrolne::PoleKontrolne(Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy, float ogrMin, float ogrMax,
+PoleKontrolne::PoleKontrolne( RodzajDichromatyzmu rd, int wartoscDichromatyzmu,
+                             Przeszkoda::Krawedz krWe, Przeszkoda::Krawedz krWy, float ogrMin, float ogrMax,
                              uint szer, uint dl, float dx, float dy)
-    : Przeszkoda( szer, dl, 0, dx, dy ), ZadanieKontrolne()
+    : Przeszkoda( szer, dl, 0, dx, dy ), ZadanieKontrolne( rd, wartoscDichromatyzmu )
 {
     wjechanoOk = wyjechanoOk = false;
     pierwszeWjechanie = true;
