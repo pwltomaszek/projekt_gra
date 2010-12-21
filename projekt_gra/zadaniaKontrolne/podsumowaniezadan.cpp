@@ -12,6 +12,7 @@ PodsumowanieZadan::PodsumowanieZadan( std::vector< ZadanieKontrolne* >zadania,
     this->zadania = zadania;
 
     punktyProtanopii = punktyDeuteranopii = punktyTritanopii = 0;
+    zadanProtanopii = zadanDeuteranopii = zadanTritanopii = 0;
 }
 void PodsumowanieZadan::dzialanie(const Pojazd *pojazd) {
 
@@ -21,24 +22,40 @@ void PodsumowanieZadan::dzialanie(const Pojazd *pojazd) {
         sprawdzajKolizje = false;
 
         foreach (ZadanieKontrolne *el, zadania) {
-            if ( el->zadanieAktywowane && !el->zadanieZaliczonePoprawnie )
+            if ( el->zadanieAktywowane){
                 switch( el->rodzajDichromatyzmu ){
                     case ZadanieKontrolne::RodzajDichromatyzmu::PROTANOPIA:
-                        punktyProtanopii += el->wartoscDichromatyzmu;
+                        zadanProtanopii++;
                         break;
                     case ZadanieKontrolne::RodzajDichromatyzmu::DEUTERANOPIA:
-                        punktyDeuteranopii += el->wartoscDichromatyzmu;
+                        zadanDeuteranopii++;
                         break;
                     case ZadanieKontrolne::RodzajDichromatyzmu::TRITANOPIA:
-                        punktyTritanopii += el->wartoscDichromatyzmu;
+                        zadanTritanopii++;
                         break;
                     default: ;
                 }
+                if (!el->zadanieZaliczonePoprawnie )
+                    switch( el->rodzajDichromatyzmu ){
+                        case ZadanieKontrolne::RodzajDichromatyzmu::PROTANOPIA:
+                            punktyProtanopii += el->wartoscDichromatyzmu;
+                            break;
+                        case ZadanieKontrolne::RodzajDichromatyzmu::DEUTERANOPIA:
+                            punktyDeuteranopii += el->wartoscDichromatyzmu;
+                            break;
+                        case ZadanieKontrolne::RodzajDichromatyzmu::TRITANOPIA:
+                            punktyTritanopii += el->wartoscDichromatyzmu;
+                            break;
+                        default: ;
+                    }
+            }
         }
 
-        qDebug()<<"punktyProtanopii: " << punktyProtanopii;
-        qDebug()<<"punktyDeuteranopii: " << punktyDeuteranopii;
-        qDebug()<<"punktyTritanopii: " << punktyTritanopii;
+        qDebug()<<"# ilosc poprawnie zaliczonych zadan / ilosc przejechanych zadan"
+                   <<" (powinno byc po x/3. jesli jest mniej, to znaczy ze czesc zadan ominieto).";
+        qDebug()<<"punktyProtanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii;
+        qDebug()<<"punktyDeuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii;
+        qDebug()<<"punktyTritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii;
     }
 
 }

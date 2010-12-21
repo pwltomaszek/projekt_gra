@@ -27,9 +27,8 @@ PoleKontrolne::PoleKontrolne( RodzajDichromatyzmu rd, int wartoscDichromatyzmu,
 
 void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
 
-    //jesli gracz wiechal ze zlej strony, to zadanie zostanie zaliczone negayuwnie
+    //jesli gracz wiechal ze zlej strony, to zadanie zostanie zaliczone negatywnie
     if( sprawdzajKolizje &&  zadanieAktywowane && !koliduje ){
-        zadanieAktywowane = true;
         zadanieZaliczonePoprawnie = false;
         qDebug() << "wyjechano z trasy przed koncem testu.";
         qDebug() << "zaliczono poprawnie: " << zadanieZaliczonePoprawnie;
@@ -39,10 +38,10 @@ void PoleKontrolne::dzialanie(const Pojazd *pojazd) {
         }
     }else if( sprawdzajKolizje && koliduje ){
 
-        if( !wjechanoOk && porownajKrawedzie( pojazd, krWe ) ){     //badanie poprawnego wjazdu            
+        if( !wjechanoOk && porownajKrawedzie( pojazd, krWe ) ){     //badanie poprawnego wjazdu
             wjechanoOk = true;
             zadanieAktywowane = true;
-            qDebug() << "\n### wjechano w PunktK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
+            qDebug() << "\n### wjechano w PoleK. z nim i jego powiaznymi nie beda wiecej sprawdzane kolizje";
 
             foreach(ZadanieKontrolne* el, kontenerPowiazania->zadaniaPowiazane){
                 if (el != this)

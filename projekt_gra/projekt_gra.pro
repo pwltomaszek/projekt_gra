@@ -45,7 +45,8 @@ SOURCES += main.cpp \
     zadaniaKontrolne/powiazaniezadan.cpp \
     zadaniaKontrolne/polekontrolne.cpp \
     zadanienamapie.cpp \
-    zadaniaKontrolne/podsumowaniezadan.cpp
+    zadaniaKontrolne/podsumowaniezadan.cpp \
+    zadaniaKontrolne/zatrzymaniekontrolne.cpp
 HEADERS += mainwindow.h \
     glwidget.h \
     gra.h \
@@ -78,7 +79,8 @@ HEADERS += mainwindow.h \
     zadaniaKontrolne/powiazaniezadan.h \
     zadaniaKontrolne/polekontrolne.h \
     zadanienamapie.h \
-    zadaniaKontrolne/podsumowaniezadan.h
+    zadaniaKontrolne/podsumowaniezadan.h \
+    zadaniaKontrolne/zatrzymaniekontrolne.h
 FORMS += mainwindow.ui
 OTHER_FILES += texture.vert \
     texture.frag \

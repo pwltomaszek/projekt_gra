@@ -7,6 +7,7 @@
 #include "zadaniaKontrolne/punktkontrolny.h"
 #include "zadaniaKontrolne/powiazaniezadan.h"
 #include "zadaniaKontrolne/polekontrolne.h"
+#include "zadaniaKontrolne/zatrzymaniekontrolne.h"
 #include "zadaniaKontrolne/podsumowaniezadan.h"
 
 Mapa::Mapa()
@@ -81,6 +82,11 @@ Mapa::Mapa()
 
     dodajIPowiazZadania( zadaniaNaMapie );
 
+    //zatrzymania (np. przed przejsciami dla pieszych)
+    zadaniaNaMapie.clear();
+    zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::PROTANOPIA, 1,
+                                                                    20, 10), 210, 58 ) );
+    dodajIPowiazZadania( zadaniaNaMapie );
 
     /*####################################################################################*/
     /*# ETAP II: DEUTERANOPIA # */
@@ -104,6 +110,12 @@ Mapa::Mapa()
                                  new PunktKontrolny(false, ZadanieKontrolne::DEUTERANOPIA, 1, 8, 1), 228, 46 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
 
+    //zatrzymania (np. przed przejsciami dla pieszych)
+    zadaniaNaMapie.clear();
+    zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::DEUTERANOPIA, 1,
+                                                                    30, 30), 370, 290 ) );
+    dodajIPowiazZadania( zadaniaNaMapie );
+
 
     /*####################################################################################*/
     /*# ETAP III: TRITANOPIA # */
@@ -125,6 +137,11 @@ Mapa::Mapa()
                                  new PunktKontrolny(true, ZadanieKontrolne::TRITANOPIA, 0, 8, 1), 423, 220 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
 
+    //zatrzymania (np. przed przejsciami dla pieszych)
+    zadaniaNaMapie.clear();
+    zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::TRITANOPIA, 1,
+                                                                    8, 20), 423, 246 ) );
+    dodajIPowiazZadania( zadaniaNaMapie );
 
     /*####################################################################################*/
     /* META */
