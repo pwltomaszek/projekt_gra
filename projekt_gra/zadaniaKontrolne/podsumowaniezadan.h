@@ -20,6 +20,7 @@ public:
     std::vector< ZadanieKontrolne* > zadania;
 
     int punktyProtanopii, punktyDeuteranopii, punktyTritanopii;
+    int zadanProtanopii, zadanDeuteranopii, zadanTritanopii;    //ile wykonano zadan
 };
 
 #endif // PODSUMOWANIEZADAN_H
