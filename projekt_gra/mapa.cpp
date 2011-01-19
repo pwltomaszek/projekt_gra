@@ -9,9 +9,11 @@
 #include "zadaniaKontrolne/polekontrolne.h"
 #include "zadaniaKontrolne/zatrzymaniekontrolne.h"
 #include "zadaniaKontrolne/podsumowaniezadan.h"
-
+#include "znak.h"
 Mapa::Mapa()
 {
+    dodajPrzeszkode( new Znak(), 2, 2);
+
     /*
     ** ZABUDOWANIA */
     //budynki

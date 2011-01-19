@@ -35,6 +35,13 @@ Gra::Gra()
     }
 
     {
+        ColladaMeshFactory factory( 0, "znaki/stop.dae" );
+        Node* node = factory.getScene( "Scene" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Znak", node );
+    }
+
+    {
         ColladaMeshFactory factory( 0, "chodnik.dae" );
         Node* node = factory.getScene( "Chodnik" );
         node->calculateTransformMatrix();
@@ -49,9 +56,9 @@ Gra::Gra()
     }
 
     {
-        ColladaMeshFactory factory( 0, "camaro.dae" );
+        ColladaMeshFactory factory( 0, "sam.dae" );
         factory.readFromFile( "camaro.mesh" );
-        mPojazd.mMesh = factory.getScene( "Camaro" );
+        mPojazd.mMesh = factory.getScene( "scena" );
         mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 15, 0.f ) );
         mPojazd.mMesh->calculateTransformMatrix();
 
