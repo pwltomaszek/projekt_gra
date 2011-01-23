@@ -111,10 +111,17 @@ Gra::Gra()
         Node::addNode( "Droga", node );
     }
 
+//    {
+//        ColladaMeshFactory factory( 0, "sam.dae" );
+//        Node* node = factory.getScene( "scena" );
+////        factory.readFromFile( "camaro.mesh" );
+//        mPojazd.mMesh = node;
+//        Node::addNode( "Samochod", node );
+//    }
+
     {
-        ColladaMeshFactory factory( 0, "sam.dae" );
+        ColladaMeshFactory factory( 0, "mscarNew2.dae" );
         Node* node = factory.getScene( "scena" );
-//        factory.readFromFile( "camaro.mesh" );
         mPojazd.mMesh = node;
         Node::addNode( "Samochod", node );
     }
@@ -174,12 +181,13 @@ void Gra::rysuj()
             break;
         }
         case FPP:{
+            gl.translate(glm::vec3(0.f, 0.f, -2.f));
             gl.rotate( -1 * mPojazd.kat, glm::vec3( 0.f, 1.f, 0.f ) );
             gl.rotate( 180.f, glm::vec3( 0.f, 0.f, 1.f ) );
             gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -2.f ) );
+                                     -1.8 ) );
     }
     }
 

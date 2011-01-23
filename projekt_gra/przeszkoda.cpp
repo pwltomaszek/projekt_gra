@@ -9,7 +9,7 @@
 
 #include <boost/geometry/geometries/segment.hpp>
 
-bool Przeszkoda::rysujObszKolizji = true;
+bool Przeszkoda::rysujObszKolizji = false;
 
 using namespace std;
 

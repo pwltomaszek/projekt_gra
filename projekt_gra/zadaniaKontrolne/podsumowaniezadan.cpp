@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QMessageBox>
 
 #include "podsumowaniezadan.h"
 
@@ -56,6 +57,13 @@ void PodsumowanieZadan::dzialanie(const Pojazd *pojazd) {
         qDebug()<<"punktyProtanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii;
         qDebug()<<"punktyDeuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii;
         qDebug()<<"punktyTritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii;
+        std::stringstream wiadomosc;
+        wiadomosc << "ilosc poprawnie zaliczonych zadan / ilosc przejechanych zadan\n";
+        wiadomosc << "(powinno byc po x/3. jesli jest mniej, to znaczy ze czesc zadan ominieto).\n";
+        wiadomosc <<"punktyProtanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii << "\n";
+        wiadomosc <<"punktyDeuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii << "\n";
+        wiadomosc <<"punktyTritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii << "\n";
+        QMessageBox::information(0, "Koniec gry", QString::fromStdString(wiadomosc.str()), QMessageBox::Ok);
     }
 
 }

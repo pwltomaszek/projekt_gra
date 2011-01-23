@@ -60,6 +60,7 @@ void MainWindow::nastepnaKlatka()
 {
     ++mFPSCount;
     mGra->petla();
+    mGLWidget->renderText(100, 100, "sdfsdf");
     mGLWidget->updateGL();
 }
 
