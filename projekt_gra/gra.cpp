@@ -35,10 +35,66 @@ Gra::Gra()
     }
 
     {
-        ColladaMeshFactory factory( 0, "znaki/stop.dae" );
+        ColladaMeshFactory factory( 0, "znaki/tritanopia/nakaz.dae" );
         Node* node = factory.getScene( "scena" );
         node->calculateTransformMatrix();
-        Node::addNode( "Znak", node );
+        Node::addNode( "tritanopiaNakaz", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/tritanopia/stop.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "tritanopiaStop", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/tritanopia/ogr.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "tritanopiaOgraniczenie", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/protanopia/nakaz.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "protanopiaNakaz", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/protanopia/stop.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "protanopiaStop", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/protanopia/ogr.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "protanopiaOgraniczenie", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/deuteranopia/nakaz.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "deuteranopiaNakaz", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/deuteranopia/stop.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "deuteranopiaStop", node );
+    }
+
+    {
+        ColladaMeshFactory factory( 0, "znaki/deuteranopia/ogr.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "deuteranopiaOgraniczenie", node );
     }
 
     {
@@ -123,7 +179,7 @@ void Gra::rysuj()
             gl.rotate( 90.f, glm::vec3( 1.f, 0.f, 0.f ) );
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -1.f ) );
+                                     -2.f ) );
     }
     }
 

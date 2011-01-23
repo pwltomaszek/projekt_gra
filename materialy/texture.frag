@@ -17,17 +17,19 @@ void main() {
     if( ambient.xyz == vec3( 0.0, 0.0, 0.0 ) )
         ambient = ambientColor;
 
-    vec4 diffuse = texture( diffuseSampler, texCoord );
-    diffuse *= diffuseColor;
-    if( diffuse.xyz == vec3( 0.0, 0.0, 0.0 ) )
-        diffuse = diffuseColor;
+	vec4 diffuse = texture( diffuseSampler, texCoord );
+	diffuse *= diffuseColor;
+	if( diffuse.xyz == vec3( 0.0, 0.0, 0.0 ) )
+		diffuse = diffuseColor;
 
 	vec3 normalizedNormal = normalize( normal );
 	vec3 normalizedLightDir = normalize( lightDirection );
 
 	float diffuseIntensity = max( dot( normalizedNormal, normalizedLightDir ), 0.0 );
 
-	vec4 finalColor = ambient;
+	vec4 finalColor = ambient * diffuse * 5;
+
+	/*vec4 finalColor = ambient;
 
 	float NdotHV;
 	if( diffuseIntensity > 0.0 ) {
@@ -35,7 +37,7 @@ void main() {
 		vec3 normalizedHalfVector = normalize( halfVector );
 		NdotHV = max( dot( normal, normalizedHalfVector ), 0.0 );
 		finalColor += specularColor * pow( NdotHV, shininess );
-	}
+	}*/
 
     gl_FragColor = finalColor;
 }

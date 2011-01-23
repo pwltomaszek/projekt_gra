@@ -21,7 +21,7 @@ public:
         WSCHOD, ZACHOD, POLNOC, POLUDNIE
     };
 
-    Przeszkoda( float rx = 0, float ry = 0, float rz = 0, float dx = 0, float dy = 0 );
+    Przeszkoda( float rx = 0, float ry = 0, float rz = 0, float dx = 0, float dy = 0, float obrot = 0 );
 
     bool czyKolidujeZPojazdem( const Pojazd *pojazd);
     // mapa zawiera dane: (ktora krawedz dotykamy, z ktorej strony)
@@ -48,6 +48,8 @@ protected:
     // do testowania
     Mesh *obszarKolizjiMesh;
     Node *mMesh;   
+
+    float obrot;
 };
 
 #endif // PRZESZKODA_H

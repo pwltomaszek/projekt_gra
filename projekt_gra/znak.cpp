@@ -3,10 +3,10 @@
 #include "opengl/mesh.h"
 #include "opengl/opengl.h"
 
-Znak::Znak(float dx, float dy)
-    : Przeszkoda( 5, 5, 5, dx, dy )
+Znak::Znak(float dx, float dy, const QString &rodzaj, float obrot)
+    : Przeszkoda( 1, 1, 1, dx, dy, obrot )
 {
-    this->mMesh = Node::node( "Znak" );
+    this->mMesh = Node::node( rodzaj.toStdString() );
 }
 
 

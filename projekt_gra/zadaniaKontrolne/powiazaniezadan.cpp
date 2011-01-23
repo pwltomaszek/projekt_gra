@@ -1,6 +1,6 @@
 #include "powiazaniezadan.h"
 #include "zadaniekontrolne.h"
-#include "QDebug";
+#include "QDebug"
 
 PowiazanieZadan::PowiazanieZadan()
 {

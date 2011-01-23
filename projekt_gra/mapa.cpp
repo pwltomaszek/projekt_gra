@@ -12,7 +12,7 @@
 #include "znak.h"
 Mapa::Mapa()
 {
-    dodajPrzeszkode( new Znak(), 2, 2);
+//    dodajPrzeszkode( new Znak(0, 0, "tritanopiaStop", 40), 2, 2);
 
     /*
     ** ZABUDOWANIA */
@@ -20,7 +20,7 @@ Mapa::Mapa()
     dodajPrzeszkode( new Budynek( 100, 4, 40 ), 50, 0 );
 
     //chodniki - najlepiej by caly obszar byl chodnikiem, a reszta obiektow go nadrysowala
-    dodajPrzeszkode( new Chodnik( 100, 100), 0, 0 );
+//    dodajPrzeszkode( new Chodnik( 100, 100), 0, 0 );
 
     //drogi
     dodajPrzeszkode( new Droga( Droga::WschodZachod, 150, 6 ), 0, 10 );
@@ -74,6 +74,7 @@ Mapa::Mapa()
                                                                     PoleKontrolne::ZACHOD, PoleKontrolne::WSCHOD,
                                                                     5, 30, 50, 8), 60, 9 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "protanopiaOgraniczenie", 90), 60, 9);
 
     //punkty (np. odnogi skrzyzowan)
     zadaniaNaMapie.clear();
@@ -81,6 +82,7 @@ Mapa::Mapa()
                                  new PunktKontrolny(true, ZadanieKontrolne::PROTANOPIA, 0, 8, 1), 149, 30 ) );
     zadaniaNaMapie.push_back( new ZadanieNaMapie(
                                  new PunktKontrolny(false, ZadanieKontrolne::PROTANOPIA, 1, 1, 8), 170, 9 ) );
+    dodajPrzeszkode( new Znak(0, 0, "protanopiaNakaz", 90), 140, 9);
 
     dodajIPowiazZadania( zadaniaNaMapie );
 
@@ -89,6 +91,7 @@ Mapa::Mapa()
     zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::PROTANOPIA, 1,
                                                                     20, 10), 210, 58 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "protanopiaStop", 90), 210, 60);
 
     /*####################################################################################*/
     /*# ETAP II: DEUTERANOPIA # */
@@ -101,6 +104,8 @@ Mapa::Mapa()
                                                                     PoleKontrolne::POLUDNIE, PoleKontrolne::POLNOC,
                                                                     10, 70, 8, 150), 387, 100 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "deuteranopiaOgraniczenie", 180), 225, 100);
+    dodajPrzeszkode( new Znak(0, 0, "deuteranopiaOgraniczenie", 180), 387, 100);
 
     //punkty (np. odnogi skrzyzowan)
     zadaniaNaMapie.clear();
@@ -112,11 +117,14 @@ Mapa::Mapa()
                                  new PunktKontrolny(false, ZadanieKontrolne::DEUTERANOPIA, 1, 8, 1), 228, 46 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
 
+    dodajPrzeszkode( new Znak(0, 0, "deuteranopiaStop", 90), 380, 299);
+
     //zatrzymania (np. przed przejsciami dla pieszych)
     zadaniaNaMapie.clear();
     zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::DEUTERANOPIA, 1,
                                                                     30, 30), 370, 290 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "deuteranopiaNakaz", 90), 420, 299);
 
 
     /*####################################################################################*/
@@ -130,6 +138,8 @@ Mapa::Mapa()
                                                                     PoleKontrolne::POLNOC, PoleKontrolne::POLUDNIE,
                                                                     10, 50, 8, 100), 423, 80 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "tritanopiaStop", 0), 420, 180);
+    dodajPrzeszkode( new Znak(0, 0, "tritanopiaStop", 0), 550, 180);
 
     //punkty (np. odnogi skrzyzowan)
     zadaniaNaMapie.clear();
@@ -138,12 +148,14 @@ Mapa::Mapa()
     zadaniaNaMapie.push_back( new ZadanieNaMapie(
                                  new PunktKontrolny(true, ZadanieKontrolne::TRITANOPIA, 0, 8, 1), 423, 220 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "tritanopiaNakaz", 0), 420, 270);
 
     //zatrzymania (np. przed przejsciami dla pieszych)
     zadaniaNaMapie.clear();
     zadaniaNaMapie.push_back( new ZadanieNaMapie( new ZatrzymanieKontrolne( ZadanieKontrolne::TRITANOPIA, 1,
                                                                     8, 20), 423, 246 ) );
     dodajIPowiazZadania( zadaniaNaMapie );
+    dodajPrzeszkode( new Znak(0, 0, "tritanopiaStop", 0), 420, 250);
 
     /*####################################################################################*/
     /* META */

@@ -13,7 +13,7 @@ bool Przeszkoda::rysujObszKolizji = true;
 
 using namespace std;
 
-Przeszkoda::Przeszkoda(float rx, float ry, float rz, float dx, float dy)
+Przeszkoda::Przeszkoda(float rx, float ry, float rz, float dx, float dy, float obrot)
     : obszarKolizjiMesh( 0 ),
       mMesh( 0 )
 {
@@ -25,6 +25,8 @@ Przeszkoda::Przeszkoda(float rx, float ry, float rz, float dx, float dy)
     this->rozmiarZ = rz;
 
     koliduje = false;
+
+    this->obrot = obrot;
 }
 
 bool Przeszkoda::czyKolidujeZPojazdem(const Pojazd *pojazd)
@@ -132,6 +134,7 @@ void Przeszkoda::rysuj()
     GLWrapper &gl = GLWrapper::instance();
 
     gl.pushMatrix();
+    gl.rotate(obrot, glm::vec3(0.f, 0.f, 1.f));
     gl.scale( rozmiarX, rozmiarY, rozmiarZ );
 
     mMesh->draw();

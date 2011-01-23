@@ -132,22 +132,6 @@
 					</bind_material>
 				</instance_geometry>
 			</node>
-			<node layer="L1" id="Lamp" name="Lamp">
-				<translate sid="translate">4.07625 1.00545 5.90386</translate>
-				<rotate sid="rotateZ">0 0 1 106.93632</rotate>
-				<rotate sid="rotateY">0 1 0 3.16371</rotate>
-				<rotate sid="rotateX">1 0 0 37.26105</rotate>
-				<scale sid="scale">1.00000 1.00000 1.00000</scale>
-				<instance_light url="#Spot"/>
-			</node>
-			<node layer="L1" id="Camera" name="Camera">
-				<translate sid="translate">7.48113 -6.50764 5.34367</translate>
-				<rotate sid="rotateZ">0 0 1 46.69194</rotate>
-				<rotate sid="rotateY">0 1 0 0.61977</rotate>
-				<rotate sid="rotateX">1 0 0 63.55930</rotate>
-				<scale sid="scale">1.00000 1.00000 1.00000</scale>
-				<instance_camera url="#Camera-Camera"/>
-			</node>
 		</visual_scene>
 	</library_visual_scenes>
 	<scene>
