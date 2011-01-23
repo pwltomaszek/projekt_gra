@@ -18,9 +18,10 @@ Mapa::Mapa()
     ** ZABUDOWANIA */
     //budynki
     dodajPrzeszkode( new Budynek( 100, 4, 40 ), 50, 0 );
-
+    dodajPrzeszkode( new Budynek( 100, 20, 10 ), 50, 100 );
+    dodajPrzeszkode( new Budynek( 40, 20, 240 ), 250, 120 );
     //chodniki - najlepiej by caly obszar byl chodnikiem, a reszta obiektow go nadrysowala
-//    dodajPrzeszkode( new Chodnik( 100, 100), 0, 0 );
+    dodajPrzeszkode( new Chodnik( 5, 13), 20, 20 );
 
     //drogi
     dodajPrzeszkode( new Droga( Droga::WschodZachod, 150, 6 ), 0, 10 );

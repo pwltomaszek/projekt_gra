@@ -57,12 +57,25 @@ void PodsumowanieZadan::dzialanie(const Pojazd *pojazd) {
         qDebug()<<"punktyProtanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii;
         qDebug()<<"punktyDeuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii;
         qDebug()<<"punktyTritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii;
+
         std::stringstream wiadomosc;
-        wiadomosc << "ilosc poprawnie zaliczonych zadan / ilosc przejechanych zadan\n";
-        wiadomosc << "(powinno byc po x/3. jesli jest mniej, to znaczy ze czesc zadan ominieto).\n";
-        wiadomosc <<"punktyProtanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii << "\n";
-        wiadomosc <<"punktyDeuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii << "\n";
-        wiadomosc <<"punktyTritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii << "\n";
+        wiadomosc << "Ilosc poprawnie zaliczonych zadan / ilosc przejechanych zadan\n";
+        wiadomosc << "(Powinno byc po x/3. Jesli jest mniej, to znaczy ze czesc zadan ominieto).\n\n";
+        wiadomosc <<"Punkty protanopii: " << zadanProtanopii - punktyProtanopii << "/" << zadanProtanopii;
+        if(zadanProtanopii > 0)
+            wiadomosc << " (poprawnosc: " << ((float)zadanProtanopii - (float)punktyProtanopii) / (float)zadanProtanopii * 100<< "%)\n";
+        else wiadomosc << " (poprawnosc: nieokreslona) \n";
+
+        wiadomosc <<"Punkty deuteranopii: " << zadanDeuteranopii - punktyDeuteranopii << "/" << zadanDeuteranopii;
+        if(zadanDeuteranopii > 0)
+            wiadomosc << " (poprawnosc: " << ((float)zadanDeuteranopii - (float)punktyDeuteranopii) / (float)zadanDeuteranopii * 100 << "%)\n";
+        else wiadomosc << " (poprawnosc: nieokreslona) \n";
+
+        wiadomosc <<"Punkty tritanopii: " << zadanTritanopii - punktyTritanopii << "/" << zadanTritanopii;
+        if(zadanTritanopii > 0)
+            wiadomosc <<" (poprawnosc: " << ((float)zadanTritanopii - (float)punktyTritanopii) / (float)zadanTritanopii * 100 << "%)\n";
+        else wiadomosc << " (poprawnosc: nieokreslona) \n";
+
         QMessageBox::information(0, "Koniec gry", QString::fromStdString(wiadomosc.str()), QMessageBox::Ok);
     }
 
