@@ -367,20 +367,18 @@ void GLWrapper::draw(Mesh *mesh)
     for( unsigned int i = 0; i < mesh->triangleCount(); ++i ) {
         Material *material = mesh->material( i );
 
-        if( shaderProgramType == GLWrapper::TextureShader )
-        {
+        if( shaderProgramType == GLWrapper::TextureShader ) {
             for( unsigned int j = 0; j < Texture::TypeCount; ++j ) {
                 Texture *texture = mesh->texture( (Texture::Type)j, i );
+                GLuint textureUniformId = glGetUniformLocation( programId,
+                                                                samplerNames[ j ].c_str() );
+                glActiveTexture( GL_TEXTURE0 + j );
                 if( texture ) {
-                    glActiveTexture( GL_TEXTURE0 + j );
                     glBindTexture( GL_TEXTURE_2D, texture->openGLId );
-                    GLuint textureUniformId = glGetUniformLocation( programId,
-                                                                    samplerNames[ j ].c_str() );
                     glUniform1i( textureUniformId, j );
+                    glEnable( GL_TEXTURE_2D );
                 }
             }
-
-            glEnable( GL_TEXTURE_2D );
         }
 
         // load material properties
@@ -412,8 +410,7 @@ void GLWrapper::draw(Mesh *mesh)
 
         lastIndexOffset += mesh->triangle( i )->indicesCount();
 
-        if( shaderProgramType == GLWrapper::TextureShader )
-        {
+        if( shaderProgramType == GLWrapper::TextureShader ) {
             glDisable( GL_TEXTURE_2D );
         }
     }

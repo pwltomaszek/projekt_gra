@@ -35,6 +35,13 @@ Gra::Gra()
     }
 
     {
+        ColladaMeshFactory factory( 0, "znaki/stop.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Znak", node );
+    }
+
+    {
         ColladaMeshFactory factory( 0, "chodnik.dae" );
         Node* node = factory.getScene( "Chodnik" );
         node->calculateTransformMatrix();
@@ -49,10 +56,11 @@ Gra::Gra()
     }
 
     {
-        ColladaMeshFactory factory( 0, "stop.dae" );
+        ColladaMeshFactory factory( 0, "sam.dae" );
         Node* node = factory.getScene( "scena" );
-        node->calculateTransformMatrix();
-        Node::addNode( "Znak", node );
+//        factory.readFromFile( "camaro.mesh" );
+        mPojazd.mMesh = node;
+        Node::addNode( "Samochod", node );
     }
 
 //    {
@@ -106,7 +114,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -30.f ) );
+                                     -40.f ) );
             break;
         }
         case FPP:{

@@ -9,16 +9,18 @@
 #include "zadaniaKontrolne/polekontrolne.h"
 #include "zadaniaKontrolne/zatrzymaniekontrolne.h"
 #include "zadaniaKontrolne/podsumowaniezadan.h"
-
+#include "znak.h"
 Mapa::Mapa()
 {
+    dodajPrzeszkode( new Znak(), 2, 2);
+
     /*
     ** ZABUDOWANIA */
     //budynki
     dodajPrzeszkode( new Budynek( 100, 4, 40 ), 50, 0 );
 
     //chodniki - najlepiej by caly obszar byl chodnikiem, a reszta obiektow go nadrysowala
-    dodajPrzeszkode( new Chodnik( 50, 1 ), 0, 25 );
+    dodajPrzeszkode( new Chodnik( 100, 100), 0, 0 );
 
     //drogi
     dodajPrzeszkode( new Droga( Droga::WschodZachod, 150, 6 ), 0, 10 );
