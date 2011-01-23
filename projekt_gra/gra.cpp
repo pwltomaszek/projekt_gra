@@ -49,24 +49,31 @@ Gra::Gra()
     }
 
     {
-        ColladaMeshFactory factory( 0, "camaro.dae" );
-        factory.readFromFile( "camaro.mesh" );
-        mPojazd.mMesh = factory.getScene( "Camaro" );
+        ColladaMeshFactory factory( 0, "stop.dae" );
+        Node* node = factory.getScene( "scena" );
+        node->calculateTransformMatrix();
+        Node::addNode( "Znak", node );
+    }
+
+//    {
+//        ColladaMeshFactory factory( 0, "camaro.dae" );
+//        factory.readFromFile( "camaro.mesh" );
+//        mPojazd.mMesh = factory.getScene( "Camaro" );
+//        mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 15, 0.f ) );
+//        mPojazd.mMesh->calculateTransformMatrix();
+
+////        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
+//    }
+
+    {
+        ColladaMeshFactory factory( 0, "sam.dae" );
+//        factory.readFromFile( "camaro.mesh" );
+        mPojazd.mMesh = factory.getScene( "scena" );
         mPojazd.polozenie = glm::translate( mPojazd.polozenie, glm::vec3( 0, 15, 0.f ) );
         mPojazd.mMesh->calculateTransformMatrix();
 
 //        factory.writeToFile( "camaro.mesh", Mesh::mMeshes.at( "CamaroMesh" ) );
     }
-
-    // niech ten kod tu trochê powisi, mo¿e przydaæ siê do rysowania przezroczystych obszarow
-//    Material *obszarKolizjiMat = new Material;
-//    float czerwony[] = { 1, 0, 0, 0.5 };
-//    obszarKolizjiMat->ambient = new float[ 4 ];
-//    memcpy( obszarKolizjiMat->ambient, czerwony, 4 * sizeof( float ) );
-//    obszarKolizjiMat->diffuse = new float[ 4 ];
-//    memcpy( obszarKolizjiMat->diffuse, czerwony, 4 * sizeof( float ) );
-
-//    Mesh::addMaterial( "czerwienAlpha", obszarKolizjiMat );
 
     // mapê nale¿y tworzyæ po wczytaniu wszystkich meshy
     mMapa = new Mapa;
@@ -99,7 +106,7 @@ void Gra::rysuj()
         case Z_GORY:{
             gl.translate( glm::vec3( -mPojazd.polozenie[ 3 ][ 0 ],
                                      -mPojazd.polozenie[ 3 ][ 1 ],
-                                     -20.f ) );
+                                     -30.f ) );
             break;
         }
         case FPP:{

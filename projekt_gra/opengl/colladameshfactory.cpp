@@ -60,6 +60,10 @@ Mesh* ColladaMeshFactory::getMesh(const QString &name)
     for( int i = 0; i < triangles.count(); ++i )
         mesh->addTriangles( processTrianglesTag( triangles.at( i ).toElement() ) );
 
+    triangles = geometryNode.elementsByTagName( "polygons" );
+    for( int i = 0; i < triangles.count(); ++i )
+        mesh->addTriangles( processTrianglesTag( triangles.at( i ).toElement() ) );
+
     convert();
 //    if( mesh->data( Mesh::Color ) ) {
 //        if( mesh->data( Mesh::TexCoord ) ) {
@@ -125,7 +129,7 @@ float* ColladaMeshFactory::putDataFromSourceTag(const QString &sourceId,
         return 0;
 
     // data
-    QStringList dataList = node.text().split( " " );
+    QStringList dataList = node.text().split( QRegExp("\\s") );
 
     float *array = new float[ dataList.count() ];
     for( int i = 0; i < dataList.count(); ++i )
